@@ -1,0 +1,368 @@
+/*
+ * PackagingBox3D — geometria, textura e pivôs extraídos de caixa-3d.html.
+ * Caixa: 280 (C) × 220 (P) × 200 (A) px. Todas as classes são locais (CSS Modules).
+ */
+.root {
+  --kraft: #bc8d56;
+  --kraft-edge: #8e663b;
+  --kraft-ink: #24422e;
+  --ctl-ink: #183c30;
+  --ctl-line: rgba(24, 60, 48, 0.22);
+  --ease-flap: cubic-bezier(0.22, 0.8, 0.2, 1);
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Área reservada antes de carregar: altura fixa evita saltos de layout. */
+.stage {
+  position: relative;
+  height: var(--stage-h, 500px);
+  cursor: grab;
+  touch-action: pan-y; /* preserva a rolagem vertical no celular */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 24px;
+  overflow: hidden; /* o objeto nunca ultrapassa a área */
+}
+.dragging .stage {
+  cursor: grabbing;
+}
+.stage:focus-visible {
+  outline: 3px solid #a17947;
+  outline-offset: 4px;
+}
+
+.view {
+  position: absolute;
+  inset: 0;
+  perspective: 1200px;
+  animation: enter 850ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.shadow {
+  position: absolute;
+  left: 50%;
+  top: 76%;
+  width: 320px;
+  height: 80px;
+  margin-left: -160px;
+  border-radius: 50%;
+  background: rgba(57, 53, 43, 0.3);
+  filter: blur(24px);
+  transform: scale(var(--box-scale, 1));
+  pointer-events: none;
+}
+
+.parallax {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.sizer {
+  position: absolute;
+  left: 50%;
+  top: 57%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transform: scale(var(--box-scale, 1));
+}
+
+.scene {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transition: transform 120ms ease-out;
+}
+.dragging .scene {
+  transition-duration: 60ms;
+}
+
+.face,
+.flap {
+  position: absolute;
+  transform-style: preserve-3d;
+  background-color: var(--kraft);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' opacity='.12' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+  border: 2px solid var(--kraft-edge);
+  box-shadow: inset 0 0 35px rgba(103, 67, 35, 0.08);
+}
+/* Verso (lado interno) de cada painel. */
+.face::after,
+.flap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #c39b68, #ad814c);
+  transform: translateZ(-1px) rotateY(180deg);
+  backface-visibility: hidden;
+  border: 1px solid #a77b48;
+}
+
+.front {
+  width: 280px;
+  height: 200px;
+  left: -140px;
+  top: -100px;
+  transform: translateZ(110px);
+}
+.back {
+  width: 280px;
+  height: 200px;
+  left: -140px;
+  top: -100px;
+  transform: rotateY(180deg) translateZ(110px);
+  background-color: #aa7b47;
+}
+.right {
+  width: 220px;
+  height: 200px;
+  left: -110px;
+  top: -100px;
+  transform: rotateY(90deg) translateZ(140px);
+  background-color: #a77540;
+}
+.left {
+  width: 220px;
+  height: 200px;
+  left: -110px;
+  top: -100px;
+  transform: rotateY(-90deg) translateZ(140px);
+  background-color: #c69963;
+}
+.bottom {
+  width: 280px;
+  height: 220px;
+  left: -140px;
+  top: -110px;
+  transform: rotateX(90deg) translateZ(-100px);
+  background-color: #a77c49;
+}
+
+.print {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--kraft-ink);
+  backface-visibility: hidden;
+  transform: translateZ(1px);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Dobradiças na borda superior de cada parede. */
+.hinge {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -100px;
+  transform-style: preserve-3d;
+}
+.hf {
+  transform: translateZ(110px);
+}
+.hb {
+  transform: rotateY(180deg) translateZ(110px);
+}
+.hr {
+  transform: rotateY(90deg) translateZ(140px);
+}
+.hl {
+  transform: rotateY(-90deg) translateZ(140px);
+}
+
+/* Abas: pivô na borda inferior (a linha da dobra). */
+.flap {
+  transform-origin: 50% 100%;
+  transition: transform 1.25s var(--ease-flap);
+  border-bottom: 2px dashed #926e45;
+}
+.major {
+  width: 280px;
+  height: 110px;
+  left: -140px;
+  top: -110px;
+  transform: rotateX(-28deg);
+}
+.minor {
+  width: 220px;
+  height: 140px;
+  left: -110px;
+  top: -140px;
+  transform: rotateX(-34deg);
+  background-color: #c29660;
+  transition-delay: 0.12s; /* ao abrir, as abas laterais seguem as maiores */
+}
+
+/* Fechada: abas laterais dobram primeiro e ficam por baixo das maiores. */
+.closed .major {
+  transform: rotateX(90deg);
+  transition-delay: 0.18s;
+}
+.closed .minor {
+  transform: rotateX(90.6deg);
+  transition-delay: 0s;
+}
+
+/* Alternativa estática quando não há suporte a 3D. */
+.fallback {
+  display: none;
+}
+.no3d .view {
+  display: none;
+}
+.no3d .fallback {
+  display: block;
+}
+.no3d .stage {
+  cursor: default;
+}
+@supports not (transform-style: preserve-3d) {
+  .view {
+    display: none;
+  }
+  .fallback {
+    display: block;
+  }
+}
+.fallback {
+  position: absolute;
+  inset: 8% 10%;
+  width: 80%;
+  height: 84%;
+}
+
+.hint {
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: #5f665c;
+}
+
+/* Controles discretos, secundários ao botão comercial. */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 8px;
+  margin: 10px auto 0;
+  max-width: 460px;
+}
+.control {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--ctl-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ctl-ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    transform 0.15s;
+}
+.control:hover {
+  background: rgba(24, 60, 48, 0.06);
+  border-color: rgba(24, 60, 48, 0.4);
+}
+.control:active {
+  transform: scale(0.97);
+}
+.control:focus-visible,
+.range input:focus-visible {
+  outline: 3px solid #a17947;
+  outline-offset: 3px;
+}
+.range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 4px 0 10px;
+  flex: 1 1 180px;
+  max-width: 240px;
+}
+.rangeLabel {
+  font-size: 0.75rem;
+  color: #5f665c;
+}
+.range input {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  accent-color: var(--ctl-ink);
+  cursor: pointer;
+}
+.degrees {
+  min-width: 3.2em;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ctl-ink);
+  text-align: right;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Escala aproximada antes da medição em JS (sem saltos). */
+@media (max-width: 800px) {
+  .root {
+    --stage-h: clamp(300px, 92vw, 420px);
+    --box-scale: 0.74;
+  }
+}
+@media (max-width: 480px) {
+  .root {
+    --box-scale: 0.58;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view {
+    animation: none;
+  }
+  .flap,
+  .scene,
+  .parallax,
+  .control {
+    transition: none !important;
+  }
+  /* Na introdução, a caixa já aparece aberta, sem movimento automático. */
+  .intro .major {
+    transform: rotateX(-28deg);
+  }
+  .intro .minor {
+    transform: rotateX(-34deg);
+  }
+}
