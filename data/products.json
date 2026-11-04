@@ -1,0 +1,746 @@
+[
+  {
+    "id": "demo-pro",
+    "slug": "smartphone-demonstrativo-pro",
+    "name": "Smartphone Demonstrativo Pro",
+    "tagline": "Modelo 3D demonstrativo para validar o showroom. Substitua pelo arquivo definitivo no painel.",
+    "published": true,
+    "demo": true,
+    "condition": "Demonstração (não está à venda)",
+    "description": "Geometria original criada para o showroom da BBM Imports: estrutura metálica com bordas arredondadas, traseira em vidro fosco, módulo de três câmeras, botões laterais e conector inferior. Não representa fielmente nenhum aparelho comercial.",
+    "poster": "/posters/demo-pro.webp",
+    "model": {
+      "url": "/models/demo-pro.glb",
+      "scale": 10,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "tintMaterials": [
+        "Frame",
+        "Buttons"
+      ],
+      "screenMaterial": "Screen"
+    },
+    "camera": {
+      "fov": 30,
+      "initial": {
+        "position": [
+          1.35,
+          0.35,
+          3.25
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "front": {
+        "position": [
+          0,
+          0,
+          3.6
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "back": {
+        "position": [
+          0,
+          0,
+          -3.6
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "side": {
+        "position": [
+          3.4,
+          0.15,
+          0.9
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minDistance": 1.6,
+      "maxDistance": 6
+    },
+    "colors": [
+      {
+        "id": "titanio-natural",
+        "name": "Titânio Natural",
+        "swatch": "#8c8a85",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#8c8a85",
+            "metalness": 1,
+            "roughness": 0.32
+          },
+          "Buttons": {
+            "color": "#8c8a85",
+            "metalness": 1,
+            "roughness": 0.36
+          },
+          "BackGlass": {
+            "color": "#9b978f",
+            "roughness": 0.42
+          },
+          "CameraPlateau": {
+            "color": "#9b978f",
+            "roughness": 0.12
+          }
+        }
+      },
+      {
+        "id": "titanio-preto",
+        "name": "Titânio Preto",
+        "swatch": "#3a3a3c",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#3a3a3c",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#3a3a3c",
+            "metalness": 1,
+            "roughness": 0.34
+          },
+          "BackGlass": {
+            "color": "#2c2c2e",
+            "roughness": 0.4
+          },
+          "CameraPlateau": {
+            "color": "#2c2c2e",
+            "roughness": 0.1
+          }
+        }
+      },
+      {
+        "id": "titanio-areia",
+        "name": "Titânio Areia",
+        "swatch": "#b8a487",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#b8a487",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#b8a487",
+            "metalness": 1,
+            "roughness": 0.34
+          },
+          "BackGlass": {
+            "color": "#c7b8a0",
+            "roughness": 0.42
+          },
+          "CameraPlateau": {
+            "color": "#c7b8a0",
+            "roughness": 0.12
+          }
+        }
+      },
+      {
+        "id": "titanio-azul",
+        "name": "Titânio Azul",
+        "swatch": "#3d4a5c",
+        "available": false,
+        "finishes": {
+          "Frame": {
+            "color": "#3d4a5c",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#3d4a5c",
+            "metalness": 1,
+            "roughness": 0.34
+          },
+          "BackGlass": {
+            "color": "#46505e",
+            "roughness": 0.42
+          },
+          "CameraPlateau": {
+            "color": "#46505e",
+            "roughness": 0.12
+          }
+        }
+      }
+    ],
+    "capacities": [
+      {
+        "id": "128gb",
+        "label": "128 GB",
+        "price": null,
+        "available": true
+      },
+      {
+        "id": "256gb",
+        "label": "256 GB",
+        "price": null,
+        "available": true
+      },
+      {
+        "id": "512gb",
+        "label": "512 GB",
+        "price": null,
+        "available": false
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "cameras",
+        "label": "Câmeras",
+        "position": [
+          0.0136,
+          0.0516,
+          -0.0069
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "camera": {
+          "position": [
+            0.62,
+            0.78,
+            -1.3
+          ],
+          "target": [
+            0.136,
+            0.516,
+            -0.05
+          ]
+        },
+        "title": "Sistema de câmeras",
+        "description": "Módulo traseiro elevado com três lentes e flash. Esta é uma geometria demonstrativa: as especificações ópticas aparecem aqui quando o modelo definitivo for cadastrado com dados verificados.",
+        "specs": [
+          {
+            "label": "Lentes no modelo 3D",
+            "value": "3 + flash"
+          },
+          {
+            "label": "Especificação óptica",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "tela",
+        "label": "Tela",
+        "position": [
+          0,
+          0.012,
+          0.0043
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "camera": {
+          "position": [
+            0.25,
+            0.25,
+            2.2
+          ],
+          "target": [
+            0,
+            0.12,
+            0
+          ]
+        },
+        "title": "Tela",
+        "description": "Painel frontal de bordas finas com recorte superior em pílula. Tamanho, tecnologia e brilho reais devem ser informados no cadastro do aparelho definitivo.",
+        "specs": [
+          {
+            "label": "Proporção no modelo 3D",
+            "value": "≈ 19,5 : 9"
+          },
+          {
+            "label": "Tecnologia",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "estrutura",
+        "label": "Estrutura",
+        "position": [
+          0.0362,
+          -0.022,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "camera": {
+          "position": [
+            1.55,
+            -0.05,
+            0.75
+          ],
+          "target": [
+            0.3,
+            -0.22,
+            0
+          ]
+        },
+        "title": "Estrutura lateral",
+        "description": "Moldura metálica contínua com bordas arredondadas e faixas de antena. No modelo demonstrativo, o acabamento acompanha a cor selecionada.",
+        "specs": [
+          {
+            "label": "Material (renderização)",
+            "value": "Metal PBR"
+          },
+          {
+            "label": "Material real",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "botoes",
+        "label": "Botões",
+        "position": [
+          -0.0364,
+          0.033,
+          0
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "camera": {
+          "position": [
+            -1.45,
+            0.5,
+            0.55
+          ],
+          "target": [
+            -0.36,
+            0.33,
+            0
+          ]
+        },
+        "title": "Botões laterais",
+        "description": "Botão de ação e controles de volume à esquerda; botão lateral à direita.",
+        "specs": [
+          {
+            "label": "Botões no modelo 3D",
+            "value": "4"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "conector",
+        "label": "Conector",
+        "position": [
+          0,
+          -0.0739,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "camera": {
+          "position": [
+            0.2,
+            -1.55,
+            0.95
+          ],
+          "target": [
+            0,
+            -0.73,
+            0
+          ]
+        },
+        "title": "Conector e alto-falantes",
+        "description": "Conector inferior centralizado entre as grades de alto-falante.",
+        "specs": [
+          {
+            "label": "Padrão do conector",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "traseira",
+        "label": "Acabamento",
+        "position": [
+          -0.012,
+          -0.03,
+          -0.0043
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "camera": {
+          "position": [
+            -0.45,
+            -0.35,
+            -1.9
+          ],
+          "target": [
+            -0.12,
+            -0.3,
+            0
+          ]
+        },
+        "title": "Acabamento traseiro",
+        "description": "Vidro com textura fosca e reflexos suaves. A cor muda conforme a variante selecionada.",
+        "specs": [
+          {
+            "label": "Acabamento (renderização)",
+            "value": "Vidro fosco PBR"
+          }
+        ],
+        "verified": false
+      }
+    ],
+    "specs": [
+      {
+        "label": "Dimensões do modelo 3D",
+        "value": "71,6 × 147,6 × 8,3 mm (geometria demonstrativa)"
+      },
+      {
+        "label": "Arquivo",
+        "value": "GLB com compressão Draco (≈ 46 KB)"
+      },
+      {
+        "label": "Status",
+        "value": "Demonstrativo — substituir pelo modelo definitivo"
+      }
+    ],
+    "whatsappMessage": "Olá! Vi o showroom 3D da BBM Imports e quero saber mais sobre os aparelhos disponíveis."
+  },
+  {
+    "id": "demo-compact",
+    "slug": "smartphone-demonstrativo-compact",
+    "name": "Smartphone Demonstrativo Compact",
+    "tagline": "Segundo modelo demonstrativo, com geometria própria, para validar a troca entre produtos.",
+    "published": true,
+    "demo": true,
+    "condition": "Demonstração (não está à venda)",
+    "description": "Geometria original menor, com estrutura em alumínio acetinado, traseira em vidro brilhante e duas câmeras em diagonal. Não representa fielmente nenhum aparelho comercial.",
+    "poster": "/posters/demo-compact.webp",
+    "model": {
+      "url": "/models/demo-compact.glb",
+      "scale": 10,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "tintMaterials": [
+        "Frame",
+        "Buttons",
+        "BackGlass",
+        "CameraPlateau"
+      ],
+      "screenMaterial": "Screen"
+    },
+    "camera": {
+      "fov": 30,
+      "initial": {
+        "position": [
+          -1.2,
+          0.3,
+          3
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "front": {
+        "position": [
+          0,
+          0,
+          3.3
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "back": {
+        "position": [
+          0,
+          0,
+          -3.3
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "side": {
+        "position": [
+          3.1,
+          0.15,
+          0.8
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minDistance": 1.5,
+      "maxDistance": 5.5
+    },
+    "colors": [
+      {
+        "id": "prata",
+        "name": "Prata",
+        "swatch": "#d9d9dc",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#d5d5d8",
+            "metalness": 1,
+            "roughness": 0.42
+          },
+          "Buttons": {
+            "color": "#d5d5d8",
+            "metalness": 1,
+            "roughness": 0.45
+          },
+          "BackGlass": {
+            "color": "#e4e2de",
+            "roughness": 0.12
+          },
+          "CameraPlateau": {
+            "color": "#e4e2de",
+            "roughness": 0.1
+          }
+        }
+      },
+      {
+        "id": "grafite",
+        "name": "Grafite",
+        "swatch": "#2d2f33",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#3a3c40",
+            "metalness": 1,
+            "roughness": 0.4
+          },
+          "Buttons": {
+            "color": "#3a3c40",
+            "metalness": 1,
+            "roughness": 0.44
+          },
+          "BackGlass": {
+            "color": "#202226",
+            "roughness": 0.1
+          },
+          "CameraPlateau": {
+            "color": "#202226",
+            "roughness": 0.08
+          }
+        }
+      },
+      {
+        "id": "verde-salvia",
+        "name": "Verde Sálvia",
+        "swatch": "#8fa595",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#8fa595",
+            "metalness": 1,
+            "roughness": 0.42
+          },
+          "Buttons": {
+            "color": "#8fa595",
+            "metalness": 1,
+            "roughness": 0.45
+          },
+          "BackGlass": {
+            "color": "#a9bcae",
+            "roughness": 0.12
+          },
+          "CameraPlateau": {
+            "color": "#a9bcae",
+            "roughness": 0.1
+          }
+        }
+      }
+    ],
+    "capacities": [
+      {
+        "id": "128gb",
+        "label": "128 GB",
+        "price": null,
+        "available": true
+      },
+      {
+        "id": "256gb",
+        "label": "256 GB",
+        "price": null,
+        "available": false
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "cameras",
+        "label": "Câmeras",
+        "position": [
+          0.0139,
+          0.0473,
+          -0.0066
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "camera": {
+          "position": [
+            0.55,
+            0.72,
+            -1.2
+          ],
+          "target": [
+            0.139,
+            0.473,
+            -0.05
+          ]
+        },
+        "title": "Câmeras em diagonal",
+        "description": "Duas lentes em diagonal com flash. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Lentes no modelo 3D",
+            "value": "2 + flash"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "tela",
+        "label": "Tela",
+        "position": [
+          0,
+          0.01,
+          0.0041
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "camera": {
+          "position": [
+            -0.2,
+            0.2,
+            2
+          ],
+          "target": [
+            0,
+            0.1,
+            0
+          ]
+        },
+        "title": "Tela",
+        "description": "Painel frontal com bordas um pouco mais largas que o modelo Pro.",
+        "specs": [
+          {
+            "label": "Tecnologia",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "conector",
+        "label": "Conector",
+        "position": [
+          0,
+          -0.0659,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "camera": {
+          "position": [
+            -0.2,
+            -1.4,
+            0.9
+          ],
+          "target": [
+            0,
+            -0.65,
+            0
+          ]
+        },
+        "title": "Conector inferior",
+        "description": "Conector centralizado entre as grades de alto-falante.",
+        "specs": [
+          {
+            "label": "Padrão do conector",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      }
+    ],
+    "specs": [
+      {
+        "label": "Dimensões do modelo 3D",
+        "value": "64,7 × 131,6 × 7,8 mm (geometria demonstrativa)"
+      },
+      {
+        "label": "Status",
+        "value": "Demonstrativo — substituir pelo modelo definitivo"
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env
+.env.local
+storage/uploads/*
+!storage/uploads/.gitkeep
+public/decoders
+*.tsbuildinfo
+next-env.d.ts
+test-results
+/e2e-output
