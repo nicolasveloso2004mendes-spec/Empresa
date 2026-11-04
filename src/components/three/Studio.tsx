@@ -26,7 +26,8 @@ export function Studio({ intensity = 1, shadowY = -0.82, shadows = true, quality
         <Lightformer form="rect" intensity={2.4} position={[5, 1, 1]} rotation={[0, -Math.PI / 2, 0]} scale={[10, 0.6, 1]} />
         <Lightformer form="rect" intensity={1.2} position={[5, -1.5, -2]} rotation={[0, -Math.PI / 2, 0]} scale={[10, 0.3, 1]} />
         {/* Softbox traseira — reflexos na traseira e nas lentes */}
-        <Lightformer form="rect" intensity={1.8} position={[-2.5, 2.5, -5]} rotation={[0, Math.PI * 0.85, 0]} scale={[5, 3, 1]} />
+        <Lightformer form="rect" intensity={2.4} position={[-2.5, 2.5, -5]} rotation={[0, Math.PI * 0.85, 0]} scale={[6, 3.5, 1]} />
+        <Lightformer form="rect" intensity={1.4} position={[3, -1, -5]} rotation={[0, -Math.PI * 0.85, 0]} scale={[4, 2, 1]} />
         {/* Luz quente de recorte por trás */}
         <Lightformer form="ring" color="#e8d2a6" intensity={1.6} position={[0, 1, -6]} scale={3} />
         <Lightformer form="rect" color="#9fb3c8" intensity={0.6} position={[0, -4, 2]} rotation={[-Math.PI / 2, 0, 0]} scale={[6, 2, 1]} />

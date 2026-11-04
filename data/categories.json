@@ -1,0 +1,30 @@
+[
+  {
+    "id": "iphone",
+    "slug": "iphone",
+    "name": "iPhone",
+    "description": "Aparelhos da linha Apple.",
+    "order": 10
+  },
+  {
+    "id": "samsung-galaxy",
+    "slug": "samsung-galaxy",
+    "name": "Samsung Galaxy",
+    "description": "Aparelhos da linha Samsung Galaxy.",
+    "order": 20
+  },
+  {
+    "id": "xiaomi",
+    "slug": "xiaomi",
+    "name": "Xiaomi",
+    "description": "Aparelhos da linha Xiaomi.",
+    "order": 30
+  },
+  {
+    "id": "dobraveis",
+    "slug": "dobraveis",
+    "name": "Dobráveis",
+    "description": "Aparelhos com tela dobrável.",
+    "order": 40
+  }
+]

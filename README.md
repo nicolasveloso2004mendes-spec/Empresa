@@ -6,9 +6,11 @@ zoom limitado, troca de cores com transição, hotspots com ficha técnica, tela
 rápidas, scroll storytelling (GSAP ScrollTrigger) e painel administrativo para cadastrar
 aparelhos e enviar modelos 3D.
 
-> **Modelos atuais são demonstrativos.** `public/models/demo-pro.glb` e `demo-compact.glb` são
-> geometrias originais geradas por código (`scripts/build-demo-models.mjs`), sem direitos de
-> terceiros. Elas **não** representam fielmente nenhum iPhone. A interface mostra o selo
+> **Modelos atuais são demonstrativos.** Os cinco arquivos em `public/models/` (`demo-pro`,
+> `demo-compact`, `demo-ultra`, `demo-round`, `demo-fold`) são geometrias e texturas originais
+> geradas por código (`scripts/build-demo-models.mjs` + `scripts/lib/textures.mjs`), sem direitos de
+> terceiros. Cada um é um arquétipo de formato (linha Pro, padrão, Android ultra com caneta,
+> câmera circular com traseira em couro, dobrável tipo livro). Elas **não** representam fielmente nenhum iPhone. A interface mostra o selo
 > “Modelo 3D demonstrativo” e as fichas técnicas aparecem como “não verificadas”. Substitua pelos
 > arquivos definitivos (licenciados) pelo painel.
 
@@ -65,6 +67,33 @@ da tela), `camera` (FOV, câmera inicial, frontal, traseira, lateral, zoom mín.
 geometria/textura própria), `capacities` (rótulo, preço ou `null`, disponível), `hotspots`
 (posição e normal no espaço local do modelo, câmera de foco, ficha técnica, `verified`) e
 `specs`.
+
+## Categorias
+
+`data/categories.json` (editável em **/admin → Categorias**): iPhone, Samsung Galaxy, Xiaomi e
+Dobráveis vêm cadastradas. O catálogo mostra abas só das categorias com produtos publicados, cada
+categoria tem página própria (`/categorias/<slug>`) e o showroom prioriza aparelhos da mesma
+categoria na navegação. Uma categoria com produtos não pode ser excluída.
+
+## Peças móveis (dobráveis)
+
+`model.articulations` descreve nós do GLB que giram: cada articulação tem um valor 0..1 que
+interpola o ângulo de cada parte (`node`, `axis`, `from`, `to` em radianos) e, opcionalmente,
+desloca o modelo inteiro (`shift`) para mantê-lo centralizado. O visualizador mostra um botão e
+um controle deslizante ("Abrir"/"Fechar"). Hotspots podem depender da articulação
+(`hotspot.articulation = { id, value }`): somem quando o aparelho está na posição errada e, ao
+serem escolhidos, abrem/fecham o aparelho antes do voo da câmera. Para um dobrável real, nomeie
+no arquivo 3D o nó da metade móvel (ex.: `FoldHinge`) com o pivô na dobradiça.
+
+## Realismo dos modelos demonstrativos
+
+- Cantos contínuos (superelipse), laterais retas ou curvas por arquétipo.
+- Materiais físicos glTF: verniz (clearcoat) em vidros e lentes, anisotropia no metal escovado,
+  IOR de safira nas lentes, *sheen* no couro.
+- Texturas procedurais WebP (EXT_texture_webp): metal escovado, vidro jateado, couro granulado,
+  revestimento das lentes e microlentes do flash.
+- Regerar: `npm run models:build` (ou `node scripts/build-demo-models.mjs fold` para um só) e, com
+  o servidor rodando, `node scripts/render-posters.cjs` para as imagens do catálogo.
 
 ## Preparando um modelo definitivo
 

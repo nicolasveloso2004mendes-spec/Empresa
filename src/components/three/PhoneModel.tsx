@@ -28,13 +28,17 @@ type Props = {
   children?: ReactNode;
   groupRef?: RefObject<Group | null>;
   onMaterials?: (m: Map<string, MeshStandardMaterial>) => void;
+  /** Valores-alvo (0..1) das articulações, por id. Ausente = valor padrão do produto. */
+  articulation?: Record<string, number>;
+  /** Recebe os valores animados atuais (para hotspots condicionados). */
+  articulationRef?: RefObject<Record<string, number>>;
 };
 
 /**
  * Renderiza o GLB do produto com materiais PBR próprios (clonados — a cena em cache não é
  * alterada) e transição suave de cor. Os filhos (hotspots) ficam no espaço local do modelo.
  */
-export function PhoneModel({ product, variant, screen = 1, instant, children, groupRef, onMaterials }: Props) {
+export function PhoneModel({ product, variant, screen = 1, instant, children, groupRef, onMaterials, articulation, articulationRef }: Props) {
   const url = variant.modelUrl ?? product.model.url;
   const gltf = useProductGLTF(url);
   const localRef = useRef<Group>(null);
@@ -66,16 +70,62 @@ export function PhoneModel({ product, variant, screen = 1, instant, children, gr
   useEffect(() => () => materials.forEach((m) => m.dispose()), [materials]);
   useEffect(() => onMaterials?.(materials), [materials, onMaterials]);
 
-  // Tela com wallpaper gerado.
+  // Telas com wallpaper gerado (nomes "Inner*" recebem a versão larga, para dobráveis).
+  const screenNames = useMemo(
+    () => [...new Set([product.model.screenMaterial, ...product.model.screenMaterials].filter(Boolean) as string[])],
+    [product.model.screenMaterial, product.model.screenMaterials],
+  );
   useEffect(() => {
-    const name = product.model.screenMaterial;
-    const m = name ? materials.get(name) : undefined;
-    if (!m) return;
-    m.emissiveMap = getScreenTexture(product.name, product.demo);
-    m.emissive = new Color("#ffffff");
-    m.color = new Color("#000000");
-    m.needsUpdate = true;
-  }, [materials, product.model.screenMaterial, product.name, product.demo]);
+    for (const name of screenNames) {
+      const m = materials.get(name);
+      if (!m) continue;
+      m.emissiveMap = getScreenTexture(product.name, product.demo, name.startsWith("Inner"));
+      m.emissive = new Color("#ffffff");
+      m.color = new Color("#000000");
+      m.needsUpdate = true;
+    }
+  }, [materials, screenNames, product.name, product.demo]);
+
+  // Articulações: guarda a rotação base de cada nó e interpola o ângulo a cada quadro.
+  type Joint = { a: Product["model"]["articulations"][number]; parts: { axis: "x" | "y" | "z"; from: number; to: number; node: Object3D; base: number }[] };
+  const joints = useRef<Joint[]>([]);
+  useEffect(() => {
+    joints.current = product.model.articulations.map((a) => ({
+      a,
+      parts: a.parts.flatMap((p) => {
+        const node = scene.getObjectByName(p.node);
+        return node ? [{ axis: p.axis, from: p.from, to: p.to, node, base: node.rotation[p.axis] }] : [];
+      }),
+    }));
+  }, [scene, product.model.articulations]);
+  const current = useRef<Record<string, number>>({});
+  useFrame((_, dt) => {
+    const k = instant ? 1 : 1 - Math.exp(-dt * 3.2);
+    for (const { a, parts } of joints.current) {
+      const goal = articulation?.[a.id] ?? a.default;
+      const prev = current.current[a.id] ?? goal;
+      const v = Math.abs(goal - prev) < 0.0005 ? goal : prev + (goal - prev) * k;
+      current.current[a.id] = v;
+      // Mutação imperativa do grafo de cena a cada quadro (padrão do R3F, fora do render).
+      // eslint-disable-next-line react-hooks/immutability
+      for (const j of parts) j.node.rotation[j.axis] = j.base + j.from + (j.to - j.from) * v;
+    }
+    if (articulationRef) articulationRef.current = current.current;
+    // Posição do modelo (+ deslocamento de articulações, ex.: centralizar o dobrável aberto).
+    const g = ref.current;
+    if (g) {
+      const [px, py, pz] = product.model.position;
+      let sx = 0, sy = 0, sz = 0;
+      for (const { a } of joints.current) {
+        if (!a.shift) continue;
+        const v = current.current[a.id] ?? a.default;
+        sx += a.shift.from[0] + (a.shift.to[0] - a.shift.from[0]) * v;
+        sy += a.shift.from[1] + (a.shift.to[1] - a.shift.from[1]) * v;
+        sz += a.shift.from[2] + (a.shift.to[2] - a.shift.from[2]) * v;
+      }
+      g.position.set(px + sx, py + sy, pz + sz);
+    }
+  });
 
   const targets = useMemo(() => resolveFinishes(product, variant), [product, variant]);
   const settled = useRef(false);
@@ -98,9 +148,10 @@ export function PhoneModel({ product, variant, screen = 1, instant, children, gr
   }, [materials, targets]);
 
   useFrame((_, dt) => {
-    const name = product.model.screenMaterial;
-    const sm = name ? materials.get(name) : undefined;
-    if (sm) sm.emissiveIntensity += (screen * 0.95 - sm.emissiveIntensity) * Math.min(1, dt * 3);
+    for (const name of screenNames) {
+      const sm = materials.get(name);
+      if (sm) sm.emissiveIntensity += (screen * 0.95 - sm.emissiveIntensity) * Math.min(1, dt * 3);
+    }
     if (settled.current) return;
     const k = instant ? 1 : 1 - Math.exp(-dt * 5); // ~0,6 s
     let done = true;
@@ -116,9 +167,10 @@ export function PhoneModel({ product, variant, screen = 1, instant, children, gr
     if (done) settled.current = true;
   });
 
-  const { scale, position, rotation } = product.model;
+  const { scale, rotation } = product.model;
+  // A posição é aplicada a cada quadro (inclui o deslocamento das articulações).
   return (
-    <group ref={ref} position={position} rotation={rotation} scale={scale} name="product-root">
+    <group ref={ref} rotation={rotation} scale={scale} name="product-root">
       <primitive object={scene} />
       {children}
     </group>

@@ -4,13 +4,13 @@ import { Catalog } from "@/components/site/Catalog";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { WhatsAppIcon } from "@/components/site/icons";
-import { listProducts } from "@/lib/store";
+import { listCategories, listProducts } from "@/lib/store";
 import { whatsappLink } from "@/lib/whatsapp";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const products = await listProducts();
+  const [products, categories] = await Promise.all([listProducts(), listCategories()]);
   // Somente o primeiro produto publicado é carregado em 3D na home (hero + storytelling).
   const featured = products[0] ?? null;
   return (
@@ -19,7 +19,7 @@ export default async function Home() {
       <main>
         <Hero product={featured} />
         {featured && <StorySection product={featured} />}
-        <Catalog products={products} />
+        <Catalog products={products} categories={categories} />
         <section className="border-t border-line">
           <div className="mx-auto flex max-w-[1400px] flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-center md:px-10">
             <div>

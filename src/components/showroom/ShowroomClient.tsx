@@ -12,9 +12,9 @@ const Product3DViewer = dynamic(() => import("@/components/three/Product3DViewer
   loading: () => <div className="absolute inset-0 bg-black" />,
 });
 
-type NavItem = { slug: string; name: string };
+type NavItem = { slug: string; name: string; category: string };
 
-export function ShowroomClient({ product, others }: { product: Product; others: NavItem[] }) {
+export function ShowroomClient({ product, others, category }: { product: Product; others: NavItem[]; category: { slug: string; name: string } | null }) {
   const firstColor = product.colors.find((c) => c.available) ?? product.colors[0];
   const firstCap = product.capacities.find((c) => c.available) ?? product.capacities[0];
   const [colorId, setColorId] = useState(firstColor.id);
@@ -40,8 +40,8 @@ export function ShowroomClient({ product, others }: { product: Product; others: 
   const next = others.length > 1 ? others[(idx + 1) % others.length] : null;
 
   return (
-    <div className="grid lg:h-[calc(100svh-5rem)] lg:grid-cols-[1fr_400px]">
-      <div className="relative h-[68svh] lg:h-auto">
+    <div className="grid grid-cols-1 lg:h-[calc(100svh-5rem)] lg:grid-cols-[minmax(0,1fr)_400px]">
+      <div className="relative h-[68svh] min-w-0 lg:h-auto">
         <Product3DViewer
           product={product}
           colorId={color.id}
@@ -51,9 +51,14 @@ export function ShowroomClient({ product, others }: { product: Product; others: 
         />
       </div>
 
-      <aside className="relative border-t border-line bg-surface lg:min-h-0 lg:overflow-y-auto lg:border-l lg:border-t-0" aria-label="Configuração do aparelho" data-testid="showroom-panel">
+      <aside className="relative min-w-0 border-t border-line bg-surface lg:min-h-0 lg:overflow-y-auto lg:border-l lg:border-t-0" aria-label="Configuração do aparelho" data-testid="showroom-panel">
         <div className="flex min-h-full flex-col gap-8 p-6 md:p-8">
           <div>
+            {category && (
+              <Link href={`/categorias/${category.slug}`} className="mb-3 inline-block text-[10px] font-semibold uppercase tracking-[0.24em] text-bone/50 hover:text-champagne" data-testid="showroom-category">
+                {category.name} →
+              </Link>
+            )}
             <p className="eyebrow">{product.condition}</p>
             <h1 className="mt-3 font-display text-[22px] font-bold uppercase leading-tight tracking-[0.04em] text-bone">{product.name}</h1>
             {product.tagline && <p className="mt-3 text-sm leading-relaxed text-mute">{product.tagline}</p>}
@@ -146,7 +151,7 @@ export function ShowroomClient({ product, others }: { product: Product; others: 
                     <ArrowIcon dir="left" />
                   </Link>
                 )}
-                <div className="no-scrollbar flex flex-1 gap-2 overflow-x-auto">
+                <div className="no-scrollbar flex min-w-0 flex-1 gap-2 overflow-x-auto">
                   {others.map((o) => (
                     <Link
                       key={o.slug}
@@ -155,6 +160,7 @@ export function ShowroomClient({ product, others }: { product: Product; others: 
                       className="shrink-0 rounded-full border border-white/10 px-3 py-2 text-[11px] text-bone/75 hover:border-white/30 aria-[current=page]:border-champagne aria-[current=page]:text-champagne"
                       data-testid={`nav-${o.slug}`}
                     >
+                      <span className="block text-[9px] uppercase tracking-[0.18em] text-white/40">{o.category}</span>
                       {o.name}
                     </Link>
                   ))}

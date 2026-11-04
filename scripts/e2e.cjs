@@ -118,10 +118,30 @@ async function waitNear(page, expected, tol = 0.05, ms = 10000) {
     const models = [];
     p2.on("request", (r) => /\.(glb|gltf)/.test(r.url()) && models.push(r.url()));
     await p2.goto(BASE + "/", { waitUntil: "networkidle" });
-    await p2.waitForTimeout(2000);
+    const t0 = Date.now();
+    while (!models.length && Date.now() - t0 < 20000) await p2.waitForTimeout(250);
+    await p2.waitForTimeout(3000); // tempo para qualquer outro modelo (não deveria) ser pedido
     await fresh.close();
     const unique = [...new Set(models.map((u) => new URL(u).pathname))];
     assert(unique.length === 1 && unique[0].includes("demo-pro"), `modelos carregados: ${unique.join(", ")}`);
+  });
+  await test("Categorias: abas filtram o catálogo sem recarregar", async () => {
+    await page.goto(BASE + "/#produtos", { waitUntil: "networkidle" });
+    const all = await page.locator("[data-testid^=card-]").count();
+    await page.click("[data-testid=tab-dobraveis]");
+    const fold = await page.locator("[data-testid^=card-]").count();
+    assert(all >= 5 && fold === 1, `todos=${all} dobráveis=${fold}`);
+    assert(await page.locator("[data-testid=card-dobravel-demonstrativo]").isVisible(), "card do dobrável ausente");
+    await page.click("[data-testid=tab-todos]");
+    assert((await page.locator("[data-testid^=card-]").count()) === all, "aba Todos não restaurou");
+  });
+  await test("Página de categoria lista só os aparelhos dela", async () => {
+    const r = await page.goto(BASE + "/categorias/xiaomi", { waitUntil: "networkidle" });
+    assert(r.status() === 200, `status ${r.status()}`);
+    const cards = await page.$$eval("[data-testid^=card-]", (els) => els.map((e) => e.dataset.testid));
+    assert(cards.length === 1 && cards[0] === "card-smartphone-demonstrativo-camera-circular", JSON.stringify(cards));
+    assert((await page.goto(BASE + "/categorias/nao-existe")).status() === 404, "categoria inexistente não deu 404");
+    await page.goto(BASE + "/", { waitUntil: "networkidle" });
   });
   await test("Catálogo: cada produto tem VISUALIZAR EM 3D apontando ao showroom", async () => {
     const links = await page.$$eval("[data-testid^=view3d-]", (as) => as.map((a) => a.getAttribute("href")));
@@ -261,7 +281,7 @@ async function waitNear(page, expected, tol = 0.05, ms = 10000) {
     const fs1 = await page.evaluate(() => !!document.fullscreenElement || !!document.querySelector("[data-testid=product-3d-viewer].\\!fixed"));
     assert(fs1, "não entrou em tela cheia");
     await page.click("[data-testid=btn-fullscreen]");
-    await page.waitForTimeout(600);
+    await page.waitForTimeout(1500);
     const fs2 = await page.evaluate(() => !!document.fullscreenElement || !!document.querySelector("[data-testid=product-3d-viewer].\\!fixed"));
     assert(!fs2, "não saiu da tela cheia");
   });
@@ -281,6 +301,27 @@ async function waitNear(page, expected, tol = 0.05, ms = 10000) {
     await viewerReady(page);
     assert((await page.textContent("h1")).includes("Compact"), "produto errado");
     await page.screenshot({ path: `${OUT}/showroom-compact.png` });
+  });
+  await test("Dobrável: abre e fecha em 3D; detalhe da tela interna abre o aparelho", async () => {
+    await page.goto(BASE + "/showroom/dobravel-demonstrativo?debug3d", { waitUntil: "networkidle" });
+    await viewerReady(page);
+    const art = () => page.evaluate(() => window.__bbmViewer.articulation().dobra);
+    assert(Math.abs((await art()) - 1) < 0.01, "não começou fechado");
+    await page.click("[data-testid=articulation-toggle-dobra]");
+    const t0 = Date.now();
+    while ((await art()) > 0.01 && Date.now() - t0 < 10000) await page.waitForTimeout(200);
+    assert((await art()) <= 0.01, `não abriu (${await art()})`);
+    await page.screenshot({ path: `${OUT}/fold-open.png` });
+    await page.click("[data-testid=articulation-toggle-dobra]");
+    await page.waitForTimeout(300);
+    await page.click("[data-testid=chip-tela-interna]");
+    await page.waitForSelector("[data-testid=hotspot-sheet]");
+    const t1 = Date.now();
+    while ((await art()) > 0.01 && Date.now() - t1 < 10000) await page.waitForTimeout(200);
+    assert((await art()) <= 0.01, "detalhe da tela interna não abriu o aparelho");
+    await page.click("[data-testid=sheet-close]");
+    // categoria aparece no painel e leva à página da categoria
+    assert((await page.getAttribute("[data-testid=showroom-category]", "href")) === "/categorias/dobraveis", "link da categoria");
   });
   await test("Página de produto tem VISUALIZAR EM 3D", async () => {
     await page.goto(BASE + "/produtos/smartphone-demonstrativo-pro");
@@ -491,6 +532,18 @@ async function waitNear(page, expected, tol = 0.05, ms = 10000) {
     assert(bad.status === 400, "URL de modelo externa aceita");
     r = await api("/api/admin/products/teste-e2e", { method: "DELETE" }, cookie);
     assert(r.status === 200, `excluir → ${r.status}`);
+  });
+  await test("Categorias no painel: editar e impedir exclusão de categoria em uso", async () => {
+    const cats = await (await api("/api/admin/categories", {}, cookie)).json();
+    assert(cats.length >= 4, "categorias não listadas");
+    const without = cats.filter((c) => c.id !== "xiaomi");
+    const r = await api("/api/admin/categories", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(without) }, cookie);
+    assert(r.status === 409, `excluir categoria em uso → ${r.status}`);
+    const renamed = cats.map((c) => (c.id === "xiaomi" ? { ...c, description: "Teste E2E" } : c));
+    const ok = await api("/api/admin/categories", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(renamed) }, cookie);
+    assert(ok.status === 200, `salvar → ${ok.status}`);
+    const back = await api("/api/admin/categories", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cats) }, cookie);
+    assert(back.status === 200, "restaurar categorias");
   });
   await test("Editor do painel abre com preview 3D", async () => {
     const b = await chromium.launch({ args: GL_ARGS });

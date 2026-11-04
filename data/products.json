@@ -3,6 +3,7 @@
     "id": "demo-pro",
     "slug": "smartphone-demonstrativo-pro",
     "name": "Smartphone Demonstrativo Pro",
+    "category": "iphone",
     "tagline": "Modelo 3D demonstrativo para validar o showroom. Substitua pelo arquivo definitivo no painel.",
     "published": true,
     "demo": true,
@@ -26,7 +27,9 @@
         "Frame",
         "Buttons"
       ],
-      "screenMaterial": "Screen"
+      "screenMaterial": "Screen",
+      "screenMaterials": [],
+      "articulations": []
     },
     "camera": {
       "fov": 30,
@@ -438,7 +441,7 @@
       },
       {
         "label": "Arquivo",
-        "value": "GLB com compressão Draco (≈ 46 KB)"
+        "value": "GLB com Draco e texturas WebP"
       },
       {
         "label": "Status",
@@ -451,11 +454,12 @@
     "id": "demo-compact",
     "slug": "smartphone-demonstrativo-compact",
     "name": "Smartphone Demonstrativo Compact",
+    "category": "iphone",
     "tagline": "Segundo modelo demonstrativo, com geometria própria, para validar a troca entre produtos.",
     "published": true,
     "demo": true,
     "condition": "Demonstração (não está à venda)",
-    "description": "Geometria original menor, com estrutura em alumínio acetinado, traseira em vidro brilhante e duas câmeras em diagonal. Não representa fielmente nenhum aparelho comercial.",
+    "description": "Geometria original menor, com estrutura em alumínio escovado, traseira em vidro brilhante colorido e duas câmeras na diagonal. Não representa fielmente nenhum aparelho comercial.",
     "poster": "/posters/demo-compact.webp",
     "model": {
       "url": "/models/demo-compact.glb",
@@ -476,7 +480,9 @@
         "BackGlass",
         "CameraPlateau"
       ],
-      "screenMaterial": "Screen"
+      "screenMaterial": "Screen",
+      "screenMaterials": [],
+      "articulations": []
     },
     "camera": {
       "fov": 30,
@@ -736,6 +742,1155 @@
       {
         "label": "Dimensões do modelo 3D",
         "value": "64,7 × 131,6 × 7,8 mm (geometria demonstrativa)"
+      },
+      {
+        "label": "Status",
+        "value": "Demonstrativo — substituir pelo modelo definitivo"
+      }
+    ]
+  },
+  {
+    "id": "demo-ultra",
+    "slug": "smartphone-demonstrativo-ultra",
+    "name": "Smartphone Demonstrativo Ultra",
+    "category": "samsung-galaxy",
+    "tagline": "Arquétipo Android ultra: cantos retos, coluna de câmeras com periscópio e caneta embutida.",
+    "published": true,
+    "demo": true,
+    "condition": "Demonstração (não está à venda)",
+    "description": "Geometria original com estrutura metálica escovada, traseira em vidro fosco, três lentes salientes em coluna, lente periscópica quadrada e furo para caneta na base. Não representa fielmente nenhum aparelho comercial.",
+    "poster": "/posters/demo-ultra.webp",
+    "model": {
+      "url": "/models/demo-ultra.glb",
+      "scale": 10,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "tintMaterials": [
+        "Frame",
+        "Buttons"
+      ],
+      "screenMaterial": "Screen",
+      "screenMaterials": [],
+      "articulations": []
+    },
+    "camera": {
+      "fov": 30,
+      "initial": {
+        "position": [
+          1.458,
+          0.378,
+          3.51
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "front": {
+        "position": [
+          0,
+          0,
+          3.888
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "back": {
+        "position": [
+          0,
+          0,
+          -3.888
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "side": {
+        "position": [
+          3.672,
+          0.162,
+          0.972
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minDistance": 1.73,
+      "maxDistance": 6.48
+    },
+    "colors": [
+      {
+        "id": "titanio-prata",
+        "name": "Titânio Prata",
+        "swatch": "#c9cacc",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#c9cacc",
+            "metalness": 1,
+            "roughness": 0.32
+          },
+          "Buttons": {
+            "color": "#c9cacc",
+            "metalness": 1,
+            "roughness": 0.37
+          },
+          "BackGlass": {
+            "color": "#d4d5d7",
+            "roughness": 0.5
+          },
+          "CameraPlateau": {
+            "color": "#d4d5d7"
+          }
+        }
+      },
+      {
+        "id": "titanio-grafite",
+        "name": "Titânio Grafite",
+        "swatch": "#55575b",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#5b5d61",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#5b5d61",
+            "metalness": 1,
+            "roughness": 0.35
+          },
+          "BackGlass": {
+            "color": "#4a4c50",
+            "roughness": 0.5
+          },
+          "CameraPlateau": {
+            "color": "#4a4c50"
+          }
+        }
+      },
+      {
+        "id": "titanio-azul-gelo",
+        "name": "Titânio Azul-gelo",
+        "swatch": "#a7b7c6",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#9fb0c0",
+            "metalness": 1,
+            "roughness": 0.32
+          },
+          "Buttons": {
+            "color": "#9fb0c0",
+            "metalness": 1,
+            "roughness": 0.37
+          },
+          "BackGlass": {
+            "color": "#b7c6d3",
+            "roughness": 0.5
+          },
+          "CameraPlateau": {
+            "color": "#b7c6d3"
+          }
+        }
+      },
+      {
+        "id": "titanio-violeta",
+        "name": "Titânio Violeta",
+        "swatch": "#857898",
+        "available": false,
+        "finishes": {
+          "Frame": {
+            "color": "#7d6f8f",
+            "metalness": 1,
+            "roughness": 0.32
+          },
+          "Buttons": {
+            "color": "#7d6f8f",
+            "metalness": 1,
+            "roughness": 0.37
+          },
+          "BackGlass": {
+            "color": "#8e819f",
+            "roughness": 0.5
+          },
+          "CameraPlateau": {
+            "color": "#8e819f"
+          }
+        }
+      }
+    ],
+    "capacities": [
+      {
+        "id": "256gb",
+        "label": "256 GB",
+        "price": null,
+        "available": true
+      },
+      {
+        "id": "512gb",
+        "label": "512 GB",
+        "price": null,
+        "available": true
+      },
+      {
+        "id": "1tb",
+        "label": "1 TB",
+        "price": null,
+        "available": false
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "cameras",
+        "label": "Câmeras",
+        "position": [
+          0.02,
+          0.0495,
+          -0.0056
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "camera": {
+          "position": [
+            0.75,
+            0.85,
+            -1.45
+          ],
+          "target": [
+            0.2,
+            0.495,
+            -0.05
+          ]
+        },
+        "title": "Câmeras em coluna",
+        "description": "Três lentes salientes alinhadas e uma lente periscópica quadrada ao lado, com flash e sensor. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Lentes no modelo 3D",
+            "value": "3 + periscópio"
+          },
+          {
+            "label": "Especificação óptica",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "tela",
+        "label": "Tela",
+        "position": [
+          0,
+          0.012,
+          0.0042
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "camera": {
+          "position": [
+            0.25,
+            0.25,
+            2.4
+          ],
+          "target": [
+            0,
+            0.12,
+            0
+          ]
+        },
+        "title": "Tela",
+        "description": "Painel frontal plano de bordas finas com câmera em furo central. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Tecnologia",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "caneta",
+        "label": "Caneta",
+        "position": [
+          -0.0285,
+          -0.0814,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "camera": {
+          "position": [
+            -0.5,
+            -1.6,
+            0.95
+          ],
+          "target": [
+            -0.28,
+            -0.8,
+            0
+          ]
+        },
+        "title": "Caneta embutida",
+        "description": "Abertura para caneta na base, ao lado da grade do alto-falante. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Caneta no modelo 3D",
+            "value": "Encaixe na base"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "conector",
+        "label": "Conector",
+        "position": [
+          0,
+          -0.0814,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "camera": {
+          "position": [
+            0.2,
+            -1.65,
+            1
+          ],
+          "target": [
+            0,
+            -0.8,
+            0
+          ]
+        },
+        "title": "Conector inferior",
+        "description": "Conector centralizado entre as grades de alto-falante.",
+        "specs": [
+          {
+            "label": "Padrão do conector",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      }
+    ],
+    "specs": [
+      {
+        "label": "Dimensões do modelo 3D",
+        "value": "79 × 162,5 × 8,2 mm (geometria demonstrativa)"
+      },
+      {
+        "label": "Status",
+        "value": "Demonstrativo — substituir pelo modelo definitivo"
+      }
+    ]
+  },
+  {
+    "id": "demo-round",
+    "slug": "smartphone-demonstrativo-camera-circular",
+    "name": "Smartphone Demonstrativo Câmera Circular",
+    "category": "xiaomi",
+    "tagline": "Arquétipo com grande ilha circular de câmeras, laterais curvas e traseira em couro sintético.",
+    "published": true,
+    "demo": true,
+    "condition": "Demonstração (não está à venda)",
+    "description": "Geometria original com laterais arredondadas, traseira em couro sintético granulado e uma ilha circular metálica com quatro lentes. Não representa fielmente nenhum aparelho comercial.",
+    "poster": "/posters/demo-round.webp",
+    "model": {
+      "url": "/models/demo-round.glb",
+      "scale": 10,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "tintMaterials": [
+        "Frame",
+        "Buttons"
+      ],
+      "screenMaterial": "Screen",
+      "screenMaterials": [],
+      "articulations": []
+    },
+    "camera": {
+      "fov": 30,
+      "initial": {
+        "position": [
+          1.458,
+          0.378,
+          3.51
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "front": {
+        "position": [
+          0,
+          0,
+          3.888
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "back": {
+        "position": [
+          0,
+          0,
+          -3.888
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "side": {
+        "position": [
+          3.672,
+          0.162,
+          0.972
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minDistance": 1.73,
+      "maxDistance": 6.48
+    },
+    "colors": [
+      {
+        "id": "couro-caramelo",
+        "name": "Couro Caramelo",
+        "swatch": "#8a5a36",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#6f6150",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#6f6150",
+            "metalness": 1,
+            "roughness": 0.35
+          },
+          "BackGlass": {
+            "color": "#8a5a36",
+            "roughness": 0.6
+          },
+          "CameraPlateau": {
+            "color": "#1c1814"
+          },
+          "CameraIsland": {
+            "color": "#6f6150",
+            "metalness": 1,
+            "roughness": 0.22
+          }
+        }
+      },
+      {
+        "id": "couro-preto",
+        "name": "Couro Preto",
+        "swatch": "#1d1d1f",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#2b2b2d",
+            "metalness": 1,
+            "roughness": 0.28
+          },
+          "Buttons": {
+            "color": "#2b2b2d",
+            "metalness": 1,
+            "roughness": 0.33
+          },
+          "BackGlass": {
+            "color": "#1d1d1f",
+            "roughness": 0.62
+          },
+          "CameraPlateau": {
+            "color": "#111113"
+          },
+          "CameraIsland": {
+            "color": "#2b2b2d",
+            "metalness": 1,
+            "roughness": 0.22
+          }
+        }
+      },
+      {
+        "id": "couro-verde",
+        "name": "Couro Verde",
+        "swatch": "#33493d",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#4a5148",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#4a5148",
+            "metalness": 1,
+            "roughness": 0.35
+          },
+          "BackGlass": {
+            "color": "#2f4a3c",
+            "roughness": 0.62
+          },
+          "CameraPlateau": {
+            "color": "#1a201c"
+          },
+          "CameraIsland": {
+            "color": "#4a5148",
+            "metalness": 1,
+            "roughness": 0.22
+          }
+        }
+      },
+      {
+        "id": "branco-ceramica",
+        "name": "Branco",
+        "swatch": "#e8e6e1",
+        "available": false,
+        "finishes": {
+          "Frame": {
+            "color": "#d8d6d1",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#d8d6d1",
+            "metalness": 1,
+            "roughness": 0.35
+          },
+          "BackGlass": {
+            "color": "#e8e6e1",
+            "roughness": 0.55
+          },
+          "CameraPlateau": {
+            "color": "#e0ded9"
+          },
+          "CameraIsland": {
+            "color": "#d8d6d1",
+            "metalness": 1,
+            "roughness": 0.22
+          }
+        }
+      }
+    ],
+    "capacities": [
+      {
+        "id": "256gb",
+        "label": "256 GB",
+        "price": null,
+        "available": true
+      },
+      {
+        "id": "512gb",
+        "label": "512 GB",
+        "price": null,
+        "available": true
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "cameras",
+        "label": "Câmeras",
+        "position": [
+          0,
+          0.0466,
+          -0.0076
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "camera": {
+          "position": [
+            0.35,
+            0.8,
+            -1.45
+          ],
+          "target": [
+            0,
+            0.466,
+            -0.05
+          ]
+        },
+        "title": "Ilha circular de câmeras",
+        "description": "Ilha metálica circular com quatro lentes, flash e sensor ao lado. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Lentes no modelo 3D",
+            "value": "4"
+          },
+          {
+            "label": "Especificação óptica",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "couro",
+        "label": "Acabamento",
+        "position": [
+          0,
+          -0.035,
+          -0.0046
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "camera": {
+          "position": [
+            -0.45,
+            -0.4,
+            -1.9
+          ],
+          "target": [
+            0,
+            -0.35,
+            0
+          ]
+        },
+        "title": "Traseira em couro sintético",
+        "description": "Textura granulada com brilho suave (sheen). A cor muda conforme a variante.",
+        "specs": [
+          {
+            "label": "Acabamento (renderização)",
+            "value": "Couro sintético PBR"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "tela",
+        "label": "Tela",
+        "position": [
+          0,
+          0.012,
+          0.0046
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "camera": {
+          "position": [
+            -0.25,
+            0.25,
+            2.4
+          ],
+          "target": [
+            0,
+            0.12,
+            0
+          ]
+        },
+        "title": "Tela",
+        "description": "Painel frontal com bordas curvas e câmera em furo central. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Tecnologia",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      },
+      {
+        "id": "conector",
+        "label": "Conector",
+        "position": [
+          0,
+          -0.0807,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "camera": {
+          "position": [
+            -0.2,
+            -1.65,
+            1
+          ],
+          "target": [
+            0,
+            -0.8,
+            0
+          ]
+        },
+        "title": "Conector inferior",
+        "description": "Conector centralizado entre as grades de alto-falante.",
+        "specs": [
+          {
+            "label": "Padrão do conector",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false
+      }
+    ],
+    "specs": [
+      {
+        "label": "Dimensões do modelo 3D",
+        "value": "75,3 × 161,2 × 9 mm (geometria demonstrativa)"
+      },
+      {
+        "label": "Status",
+        "value": "Demonstrativo — substituir pelo modelo definitivo"
+      }
+    ]
+  },
+  {
+    "id": "demo-fold",
+    "slug": "dobravel-demonstrativo",
+    "name": "Dobrável Demonstrativo",
+    "category": "dobraveis",
+    "tagline": "Arquétipo dobrável tipo livro: abra e feche o aparelho em 3D.",
+    "published": true,
+    "demo": true,
+    "condition": "Demonstração (não está à venda)",
+    "description": "Geometria original com duas metades unidas por dobradiça, tela externa, tela interna dobrável e coluna de três câmeras. A dobradiça é animada no visualizador. Não representa fielmente nenhum aparelho comercial.",
+    "poster": "/posters/demo-fold.webp",
+    "model": {
+      "url": "/models/demo-fold.glb",
+      "scale": 10,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "tintMaterials": [
+        "Frame",
+        "Buttons",
+        "Hinge"
+      ],
+      "screenMaterial": "Screen",
+      "screenMaterials": [
+        "InnerScreen"
+      ],
+      "articulations": [
+        {
+          "id": "dobra",
+          "label": "Abrir e fechar o aparelho",
+          "labels": [
+            "Abrir",
+            "Fechar"
+          ],
+          "default": 1,
+          "parts": [
+            {
+              "node": "FoldHinge",
+              "axis": "y",
+              "from": 0,
+              "to": -3.14159
+            },
+            {
+              "node": "FoldSpine",
+              "axis": "y",
+              "from": 0,
+              "to": -1.5708
+            }
+          ],
+          "shift": {
+            "from": [
+              -0.3375,
+              0,
+              0
+            ],
+            "to": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    "camera": {
+      "fov": 30,
+      "initial": {
+        "position": [
+          1.4,
+          0.35,
+          3.3
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "front": {
+        "position": [
+          0,
+          0,
+          3.6
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "back": {
+        "position": [
+          0,
+          0,
+          -3.6
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "side": {
+        "position": [
+          3.4,
+          0.15,
+          0.9
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minDistance": 1.8,
+      "maxDistance": 6.5
+    },
+    "colors": [
+      {
+        "id": "prata",
+        "name": "Prata",
+        "swatch": "#cfd0d3",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#c4c5c8",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#c4c5c8",
+            "metalness": 1,
+            "roughness": 0.35
+          },
+          "BackGlass": {
+            "color": "#d8d9db",
+            "roughness": 0.5
+          },
+          "CameraPlateau": {
+            "color": "#d8d9db"
+          },
+          "Hinge": {
+            "color": "#c4c5c8",
+            "metalness": 1,
+            "roughness": 0.3
+          }
+        }
+      },
+      {
+        "id": "grafite",
+        "name": "Grafite",
+        "swatch": "#3a3c40",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#6b6b70",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#6b6b70",
+            "metalness": 1,
+            "roughness": 0.35
+          },
+          "BackGlass": {
+            "color": "#2f3236",
+            "roughness": 0.5
+          },
+          "CameraPlateau": {
+            "color": "#2f3236"
+          },
+          "Hinge": {
+            "color": "#6b6b70",
+            "metalness": 1,
+            "roughness": 0.3
+          }
+        }
+      },
+      {
+        "id": "azul-marinho",
+        "name": "Azul-marinho",
+        "swatch": "#2a3650",
+        "available": true,
+        "finishes": {
+          "Frame": {
+            "color": "#4a5468",
+            "metalness": 1,
+            "roughness": 0.3
+          },
+          "Buttons": {
+            "color": "#4a5468",
+            "metalness": 1,
+            "roughness": 0.35
+          },
+          "BackGlass": {
+            "color": "#26324a",
+            "roughness": 0.5
+          },
+          "CameraPlateau": {
+            "color": "#26324a"
+          },
+          "Hinge": {
+            "color": "#4a5468",
+            "metalness": 1,
+            "roughness": 0.3
+          }
+        }
+      }
+    ],
+    "capacities": [
+      {
+        "id": "256gb",
+        "label": "256 GB",
+        "price": null,
+        "available": true
+      },
+      {
+        "id": "512gb",
+        "label": "512 GB",
+        "price": null,
+        "available": false
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "tela-interna",
+        "label": "Tela interna",
+        "position": [
+          0.0338,
+          0.01,
+          0.0002
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "camera": {
+          "position": [
+            0,
+            0.2,
+            3.7
+          ],
+          "target": [
+            0,
+            0.05,
+            0
+          ]
+        },
+        "title": "Tela interna dobrável",
+        "description": "Ao abrir, as duas metades formam uma tela larga com dobra central. O aparelho abre automaticamente ao escolher este detalhe. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Abertura no modelo 3D",
+            "value": "0° a 180°"
+          },
+          {
+            "label": "Tecnologia",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false,
+        "articulation": {
+          "id": "dobra",
+          "value": 0
+        }
+      },
+      {
+        "id": "tela-externa",
+        "label": "Tela externa",
+        "position": [
+          0,
+          0.01,
+          0.0063
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "camera": {
+          "position": [
+            0.25,
+            0.25,
+            2.4
+          ],
+          "target": [
+            0,
+            0.1,
+            0
+          ]
+        },
+        "title": "Tela externa",
+        "description": "Tela na face externa para uso com o aparelho fechado. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Tecnologia",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false,
+        "articulation": {
+          "id": "dobra",
+          "value": 1
+        }
+      },
+      {
+        "id": "dobradica",
+        "label": "Dobradiça",
+        "position": [
+          0.0399,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "camera": {
+          "position": [
+            2.35,
+            0.4,
+            1.15
+          ],
+          "target": [
+            0.3,
+            0,
+            0
+          ]
+        },
+        "title": "Dobradiça",
+        "description": "Lombada metálica que gira junto com as metades — no modelo 3D, a dobradiça gira metade do ângulo de abertura.",
+        "specs": [
+          {
+            "label": "Mecanismo (renderização)",
+            "value": "Dobradiça animada"
+          }
+        ],
+        "verified": false,
+        "articulation": {
+          "id": "dobra",
+          "value": 1
+        }
+      },
+      {
+        "id": "cameras",
+        "label": "Câmeras",
+        "position": [
+          0.0163,
+          0.046,
+          -0.0088
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "camera": {
+          "position": [
+            0.6,
+            0.8,
+            -1.45
+          ],
+          "target": [
+            0.163,
+            0.46,
+            -0.06
+          ]
+        },
+        "title": "Câmeras traseiras",
+        "description": "Coluna de três lentes na metade fixa, com flash ao lado. O aparelho fecha automaticamente ao escolher este detalhe. Geometria demonstrativa — cadastre as especificações reais no painel.",
+        "specs": [
+          {
+            "label": "Lentes no modelo 3D",
+            "value": "3 + flash"
+          },
+          {
+            "label": "Especificação óptica",
+            "value": "Cadastrar no painel"
+          }
+        ],
+        "verified": false,
+        "articulation": {
+          "id": "dobra",
+          "value": 1
+        }
+      }
+    ],
+    "specs": [
+      {
+        "label": "Dimensões do modelo 3D (fechado)",
+        "value": "67,5 × 155 × 12,2 mm (geometria demonstrativa)"
       },
       {
         "label": "Status",

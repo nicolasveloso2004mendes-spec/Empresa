@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ShowroomClient } from "@/components/showroom/ShowroomClient";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { getProductBySlug, listProducts } from "@/lib/store";
+import { getProductBySlug, listCategories, listProducts } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
 
@@ -20,13 +20,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ShowroomPage({ params }: Props) {
   const { slug } = await params;
-  const [product, all] = await Promise.all([getProductBySlug(slug), listProducts()]);
+  const [product, all, categories] = await Promise.all([getProductBySlug(slug), listProducts(), listCategories()]);
   if (!product) notFound();
+  const category = categories.find((c) => c.id === product.category) ?? null;
+  // Mesma categoria primeiro, depois as demais (na ordem das categorias).
+  const order = (id: string) => (id === product.category ? -1 : categories.findIndex((c) => c.id === id));
+  const others = [...all].sort((a, b) => order(a.category) - order(b.category));
   return (
     <>
       <SiteHeader />
       <main>
-        <ShowroomClient product={product} others={all.map((p) => ({ slug: p.slug, name: p.name }))} />
+        <ShowroomClient
+          product={product}
+          category={category ? { slug: category.slug, name: category.name } : null}
+          others={others.map((p) => ({ slug: p.slug, name: p.name, category: categories.find((c) => c.id === p.category)?.name ?? "" }))}
+        />
       </main>
     </>
   );

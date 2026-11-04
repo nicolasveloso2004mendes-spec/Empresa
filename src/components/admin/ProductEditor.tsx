@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState, type ReactNode } from "react";
-import { product as productSchema, type CameraView, type ColorVariant, type Hotspot, type Product, type Spec, type Vec3 } from "@/lib/schema";
+import { articulation as articulationSchema, product as productSchema, type CameraView, type Category, type ColorVariant, type Hotspot, type Product, type Spec, type Vec3 } from "@/lib/schema";
 import type { PreviewHandle } from "./AdminPreview";
 
 const AdminPreview = dynamic(() => import("./AdminPreview").then((m) => m.AdminPreview), { ssr: false });
@@ -33,7 +33,7 @@ async function upload(file: File, kind: "model" | "image"): Promise<string> {
   return json.url as string;
 }
 
-export function ProductEditor({ initial, isNew }: { initial: Product; isNew: boolean }) {
+export function ProductEditor({ initial, isNew, categories }: { initial: Product; isNew: boolean; categories: Category[] }) {
   const router = useRouter();
   const [p, setP] = useState<Product>(initial);
   const [materials, setMaterials] = useState<string[]>([]);
@@ -106,6 +106,12 @@ export function ProductEditor({ initial, isNew }: { initial: Product; isNew: boo
               }} data-testid="f-name" />
             </Field>
             <Field label="Condição"><input className="field" value={p.condition} onChange={(e) => set("condition", e.target.value)} placeholder="Novo, Seminovo…" /></Field>
+            <Field label="Categoria">
+              <select className="field" value={p.category} onChange={(e) => set("category", e.target.value)} data-testid="f-category">
+                {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                <option value="outros">Outros (sem categoria)</option>
+              </select>
+            </Field>
             <Field label="Identificador"><input className="field" value={p.id} onChange={(e) => set("id", e.target.value)} disabled={!isNew} /></Field>
             <Field label="Slug (URL)"><input className="field" value={p.slug} onChange={(e) => set("slug", e.target.value)} /></Field>
           </div>
@@ -150,6 +156,33 @@ export function ProductEditor({ initial, isNew }: { initial: Product; isNew: boo
                   setModel({ tintMaterials: v ? [...p.model.tintMaterials, m] : p.model.tintMaterials.filter((x) => x !== m) })} />
               ))}
             </div>
+          </Field>
+          <Field label="Telas adicionais (ex.: tela interna de dobrável)">
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              {materials.filter((m) => m !== p.model.screenMaterial).map((m) => (
+                <Check key={m} label={m} checked={p.model.screenMaterials.includes(m)} onChange={(v) =>
+                  setModel({ screenMaterials: v ? [...p.model.screenMaterials, m] : p.model.screenMaterials.filter((x) => x !== m) })} />
+              ))}
+            </div>
+          </Field>
+          <Field label="Peças móveis — articulações (avançado, JSON)">
+            <textarea
+              className="field min-h-28 font-mono text-xs"
+              defaultValue={JSON.stringify(p.model.articulations, null, 2)}
+              onBlur={(e) => {
+                try {
+                  const parsed = articulationSchema.array().max(4).parse(JSON.parse(e.target.value || "[]"));
+                  setModel({ articulations: parsed });
+                  setStatus({ kind: "ok", msg: "Articulações atualizadas no preview." });
+                } catch (err) {
+                  setStatus({ kind: "error", msg: `Articulações inválidas: ${(err as Error).message.slice(0, 160)}` });
+                }
+              }}
+              data-testid="f-articulations"
+            />
+            <span className="mt-1 block text-xs text-mute">
+              Formato: [{"{"}&quot;id&quot;, &quot;label&quot;, &quot;labels&quot;: [&quot;Abrir&quot;, &quot;Fechar&quot;], &quot;default&quot;: 0..1, &quot;parts&quot;: [{"{"}&quot;node&quot;, &quot;axis&quot;: &quot;y&quot;, &quot;from&quot;, &quot;to&quot; (radianos){"}"}]{"}"}]. O nó precisa existir no arquivo 3D.
+            </span>
           </Field>
           <Field label="Material da tela (opcional)">
             <select className="field" value={p.model.screenMaterial ?? ""} onChange={(e) => setModel({ screenMaterial: e.target.value || undefined })}>

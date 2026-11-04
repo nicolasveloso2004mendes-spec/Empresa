@@ -12,6 +12,7 @@ export default async function AdminHome() {
         <h1 className="font-display text-xl font-bold uppercase text-bone">Produtos 3D</h1>
         <div className="flex gap-2">
           <Link href="/admin/produtos/novo" className="btn-primary">Cadastrar smartphone</Link>
+          <Link href="/admin/categorias" className="btn-ghost">Categorias</Link>
           <LogoutButton />
         </div>
       </div>
@@ -21,7 +22,7 @@ export default async function AdminHome() {
             <div>
               <div className="font-medium text-bone">{p.name}</div>
               <div className="mt-1 text-xs text-mute">
-                /{p.slug} · {p.model.url} · {p.colors.length} cores · {p.hotspots.length} hotspots
+                {p.category} · /{p.slug} · {p.model.url} · {p.colors.length} cores · {p.hotspots.length} hotspots
                 {p.demo && " · demonstrativo"}
               </div>
             </div>

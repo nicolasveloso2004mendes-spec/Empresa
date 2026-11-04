@@ -4,11 +4,11 @@ import { CanvasTexture, SRGBColorSpace } from "three";
 const cache = new Map<string, CanvasTexture>();
 
 /** Wallpaper gerado no navegador para a tela do aparelho (sem imagens de terceiros). */
-export function getScreenTexture(label: string, demo: boolean): CanvasTexture {
-  const key = `${label}|${demo}`;
+export function getScreenTexture(label: string, demo: boolean, wide = false): CanvasTexture {
+  const key = `${label}|${demo}|${wide}`;
   const hit = cache.get(key);
   if (hit) return hit;
-  const w = 512, h = 1056;
+  const w = wide ? 1024 : 512, h = wide ? 1100 : 1056;
   const c = document.createElement("canvas");
   c.width = w;
   c.height = h;

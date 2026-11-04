@@ -61,7 +61,8 @@ function FocusLight({ hotspot, groupRef }: { hotspot: Hotspot | null; groupRef: 
 }
 
 /** Ponte de depuração/testes: expõe o estado da câmera e dos materiais (somente com ?debug3d). */
-function DebugBridge({ controls, materials, colorId, focused }: {
+function DebugBridge({ controls, materials, colorId, focused, artRef }: {
+  artRef: RefObject<Record<string, number>>;
   controls: RefObject<OrbitControlsImpl | null>;
   materials: RefObject<Map<string, MeshStandardMaterial> | null>;
   colorId: string;
@@ -85,6 +86,7 @@ function DebugBridge({ controls, materials, colorId, focused }: {
       },
       colorId,
       focused,
+      articulation: () => ({ ...artRef.current }),
       dpr: gl.getPixelRatio(),
     };
   });
@@ -106,10 +108,15 @@ export function Product3DViewer({
   const [webgl, setWebgl] = useState<boolean | null>(null);
   const [autoRotate, setAutoRotate] = useState(autoRotateDefault);
   const [fullscreen, setFullscreen] = useState<"none" | "native" | "css">("none");
+  const wantFullscreen = useRef(false);
   const [dpr, setDpr] = useState(1);
   const [contextLost, setContextLost] = useState(false);
   const [retryKey, setRetryKey] = useState(0);
   const [internalHotspot, setInternalHotspot] = useState<string | null>(null);
+  const [art, setArt] = useState<Record<string, number>>(() =>
+    Object.fromEntries(product.model.articulations.map((a) => [a.id, a.default])),
+  );
+  const artRef = useRef<Record<string, number>>({});
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const groupRef = useRef<Group | null>(null);
   const materialsRef = useRef<Map<string, MeshStandardMaterial> | null>(null);
@@ -129,6 +136,8 @@ export function Product3DViewer({
   const setHotspotId = useCallback(
     (id: string | null, returnToInitial = true) => {
       const h = id ? product.hotspots.find((x) => x.id === id) : null;
+      // Detalhe que depende da dobra (ex.: tela interna) abre/fecha o aparelho antes do voo.
+      if (h?.articulation) setArt((v) => ({ ...v, [h.articulation!.id]: h.articulation!.value }));
       if (h) flyTo(h.camera, true);
       else if (returnToInitial) flyTo(product.camera.initial);
       setInternalHotspot(id);
@@ -158,10 +167,12 @@ export function Product3DViewer({
     const el = wrapRef.current;
     if (!el) return;
     if (fullscreen !== "none") {
+      wantFullscreen.current = false;
       setFullscreen("none");
       if (document.fullscreenElement) document.exitFullscreen?.().catch(() => undefined);
       return;
     }
+    wantFullscreen.current = true;
     if (el.requestFullscreen && document.fullscreenEnabled) {
       try {
         // Alguns navegadores embutidos nunca resolvem a promessa: limite de 1 s.
@@ -175,8 +186,15 @@ export function Product3DViewer({
   };
   useEffect(() => {
     // Só sincroniza com o modo nativo; não desfaz o modo CSS (fallback) por engano.
-    const onChange = () =>
-      setFullscreen((prev) => (document.fullscreenElement === wrapRef.current ? "native" : prev === "native" ? "none" : prev));
+    const onChange = () => {
+      const mine = document.fullscreenElement === wrapRef.current;
+      // A tela cheia nativa chegou depois de o visitante já ter pedido para sair: desfaz.
+      if (mine && !wantFullscreen.current) {
+        document.exitFullscreen?.().catch(() => undefined);
+        return;
+      }
+      setFullscreen((prev) => (mine ? "native" : prev === "native" ? "none" : prev));
+    };
     document.addEventListener("fullscreenchange", onChange);
     return () => document.removeEventListener("fullscreenchange", onChange);
   }, []);
@@ -249,8 +267,8 @@ export function Product3DViewer({
                 <fog attach="fog" args={["#000000", 6, 14]} />
                 <Studio shadowY={-0.8 * (product.model.scale / 10) + product.model.position[1]} />
                 <Suspense fallback={null}>
-                  <PhoneModel product={product} variant={variant} instant={reduced} groupRef={groupRef} onMaterials={onMaterials}>
-                    <Hotspots hotspots={product.hotspots} activeId={hotspotId} onSelect={(h) => setHotspotId(h.id === hotspotId ? null : h.id)} visible />
+                  <PhoneModel product={product} variant={variant} instant={reduced} groupRef={groupRef} onMaterials={onMaterials} articulation={art} articulationRef={artRef}>
+                    <Hotspots hotspots={product.hotspots} activeId={hotspotId} onSelect={(h) => setHotspotId(h.id === hotspotId ? null : h.id)} visible articulationRef={artRef} />
                   </PhoneModel>
                 </Suspense>
                 <FocusLight hotspot={hotspot} groupRef={groupRef} />
@@ -263,7 +281,7 @@ export function Product3DViewer({
                   instant={reduced}
                   controlsRef={controlsRef}
                 />
-                <DebugBridge controls={controlsRef} materials={materialsRef} colorId={variant.id} focused={hotspotId} />
+                <DebugBridge controls={controlsRef} materials={materialsRef} colorId={variant.id} focused={hotspotId} artRef={artRef} />
               </Canvas>
               <ViewerLoader />
             </>
@@ -296,6 +314,38 @@ export function Product3DViewer({
           {autoRotate ? <path d="M9 6v12M15 6v12" /> : <path d="M12 3a9 9 0 1 1-8.5 6M3.5 3v6h6" />}
         </ToolButton>
       </div>
+
+      {/* Peças móveis (ex.: abrir/fechar dobrável) */}
+      {product.model.articulations.length > 0 && webgl !== false && (
+        <div className="absolute bottom-[4.25rem] left-1/2 z-20 flex -translate-x-1/2 flex-col gap-2 md:bottom-3 md:left-auto md:right-3 md:translate-x-0">
+          {product.model.articulations.map((a) => {
+            const v = art[a.id] ?? a.default;
+            return (
+              <div key={a.id} className="flex items-center gap-3 rounded-full border border-white/10 bg-black/60 py-1 pl-1 pr-4 backdrop-blur" data-testid={`articulation-${a.id}`}>
+                <button
+                  type="button"
+                  className="view-chip !text-champagne"
+                  onClick={() => setArt((x) => ({ ...x, [a.id]: v > 0.5 ? 0 : 1 }))}
+                  data-testid={`articulation-toggle-${a.id}`}
+                >
+                  {v > 0.5 ? a.labels[0] : a.labels[1]}
+                </button>
+                <input
+                  type="range"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={v}
+                  onChange={(e) => setArt((x) => ({ ...x, [a.id]: Number(e.target.value) }))}
+                  aria-label={a.label}
+                  className="w-28 accent-[#cdb88f]"
+                  data-testid={`articulation-range-${a.id}`}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* Vistas rápidas */}
       <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-1 rounded-full border border-white/10 bg-black/60 p-1 backdrop-blur" role="group" aria-label="Vistas">
