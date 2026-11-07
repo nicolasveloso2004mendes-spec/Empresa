@@ -21,6 +21,8 @@
 
 :root {
   color-scheme: dark;
+  /* scroll length per pinned scene: phones get a tighter edit of the same film */
+  --scene-k: 1;
   --gutter: clamp(1rem, 4vw, 3.5rem);
 }
 
@@ -148,6 +150,12 @@ body {
 }
 .bp-cursor.is-gold {
   color: var(--color-gold-hi);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --scene-k: 0.58;
+  }
 }
 
 /* fallback stage when WebGL is unavailable */

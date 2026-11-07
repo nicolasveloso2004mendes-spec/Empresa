@@ -161,7 +161,7 @@ export function direct(out: Shot, aspect: number, time: number) {
   const t = inOut(p);
   out.pos.set(Math.sin(time * 0.15) * 0.15, F.y + 0.1, F.z + lerp(16, 8.5, t) * k);
   out.target.set(0, F.y + (portrait ? -0.6 : 0.1), F.z);
-  const rise = smooth(seg(p, 0.05, 0.6));
+  const rise = smooth(seg(p, 0.0, 0.4));
   out.key.set(Math.sin(time * 0.5) * 2.2, lerp(-3, 1.8, rise), F.z + 3);
   out.keyIntensity = lerp(0, 42, rise) + bell(p, 0.5, 0.9) * 8;
   out.exposure = lerp(0.05, 0.5, rise);

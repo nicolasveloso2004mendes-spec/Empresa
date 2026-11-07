@@ -14,7 +14,7 @@ const EXPERIMENTS = [
 export function LabScene() {
   return (
     <SceneSection id="lab" label="Laboratório NicoTech" pinned={false}>
-      <div className="relative px-[var(--gutter)] pb-[30svh] pt-[24svh]">
+      <div className="relative px-[var(--gutter)] pb-[10svh] pt-[12svh] md:pb-[30svh] md:pt-[24svh]">
         <Blueprint mode="self" cursors={10} className="max-w-3xl">
           <p data-bp className="eyebrow">05 — Laboratório NicoTech</p>
           <h2 data-bp className="display mt-4 text-[clamp(3rem,9vw,8.5rem)]">
@@ -25,7 +25,7 @@ export function LabScene() {
           </p>
         </Blueprint>
 
-        <div className="mt-20 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:mt-20 lg:grid-cols-3">
           {EXPERIMENTS.map(({ n, title, hint, C }) => (
             <Blueprint key={n} mode="self" cursors={8} className="h-full">
               <article className="flex h-full flex-col border border-white/10 bg-graphite/85 p-5 backdrop-blur-md">

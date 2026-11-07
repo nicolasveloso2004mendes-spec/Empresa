@@ -1,18 +1,29 @@
 "use client";
-import { SceneSection, useSceneTimeline } from "@/components/cinematic/SceneSection";
+import { useLayoutEffect } from "react";
+import { SceneSection } from "@/components/cinematic/SceneSection";
 import { Blueprint } from "@/components/transitions/Blueprint";
-import { SplitText } from "@/lib/animation/gsap";
+import { gsap, SplitText } from "@/lib/animation/gsap";
 import { site } from "@/data/site";
 
 function FinalCopy() {
-  useSceneTimeline((tl, root) => {
-    root.querySelectorAll<HTMLElement>("[data-fl]").forEach((l, i) => {
-      const gold = l.hasAttribute("data-gold");
-      const s = SplitText.create(l, gold ? { type: "lines", mask: "lines", linesClass: "gold-text" } : { type: "chars", mask: "chars" });
-      tl.from(gold ? s.lines : s.chars, { yPercent: 120, duration: 0.14, stagger: 0.006, ease: "power4.out" }, 0.22 + i * 0.07);
-    });
-    tl.from("[data-alt]", { opacity: 0, y: 16, duration: 0.08 }, 0.72);
-  });
+  // scrubbed while the scene rises into view, so the screen is never empty on arrival
+  useLayoutEffect(() => {
+    const section = document.getElementById("final");
+    if (!section) return;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: { trigger: section, start: "top 85%", end: "top 10%", scrub: 0.6 },
+      });
+      section.querySelectorAll<HTMLElement>("[data-fl]").forEach((l, i) => {
+        const gold = l.hasAttribute("data-gold");
+        const sp = SplitText.create(l, gold ? { type: "lines", mask: "lines", linesClass: "gold-text" } : { type: "chars", mask: "chars" });
+        tl.from(gold ? sp.lines : sp.chars, { yPercent: 120, duration: 0.3, stagger: 0.012, ease: "power4.out" }, i * 0.14);
+      });
+      tl.from("[data-alt]", { opacity: 0, y: 16, duration: 0.2 }, 0.75);
+    }, section);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div className="relative flex h-full flex-col items-center justify-center px-[var(--gutter)] text-center">
@@ -23,7 +34,7 @@ function FinalCopy() {
         <span data-fl className="block">algo</span>
         <span data-fl data-gold className="block text-gold">extraordinário.</span>
       </h2>
-      <Blueprint mode="scene" sceneId="final" range={[0.42, 0.78]} cursors={18} className="relative mt-12">
+      <Blueprint mode="self" cursors={18} className="relative mt-12">
         <a
           data-bp
           href={site.primaryContact.href}
@@ -55,7 +66,7 @@ function FinalCopy() {
 
 export function FinalScene() {
   return (
-    <SceneSection id="final" length={2.8} label="Vamos criar algo extraordinário" overlap={false}>
+    <SceneSection id="final" length={2.2} label="Vamos criar algo extraordinário" overlap={false}>
       <FinalCopy />
     </SceneSection>
   );

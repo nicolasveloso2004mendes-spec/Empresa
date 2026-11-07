@@ -29,8 +29,7 @@ function CapsCopy() {
   useSceneTimeline((tl, root) => {
     const t = SplitText.create(root.querySelector("[data-title]"), { type: "chars", mask: "chars" });
     tl.from(t.chars, { yPercent: 120, duration: 0.05, stagger: 0.003, ease: "power4.out" }, 0)
-      .from("[data-rail] li", { opacity: 0, x: -24, duration: 0.04, stagger: 0.008 }, 0.02)
-      .to("[data-caps]", { opacity: 0, duration: 0.025 }, 0.975);
+      .from("[data-rail] li", { opacity: 0, x: -24, duration: 0.04, stagger: 0.008 }, 0.02);
   });
 
   const c = capabilities[active];
@@ -92,7 +91,7 @@ function CapsCopy() {
 
 export function CapabilitiesScene() {
   return (
-    <SceneSection id="capabilities" length={6.5} label="Nossos serviços">
+    <SceneSection id="capabilities" length={6.5} label="Nossos serviços" holdEnd>
       <CapsCopy />
     </SceneSection>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useLayoutEffect, useRef, type ReactNode, type RefObject } from "react";
+import { createContext, useContext, useLayoutEffect, useMemo, useRef, type ReactNode, type RefObject } from "react";
 import { gsap, ScrollTrigger } from "@/lib/animation/gsap";
 import { cine, recomputeActive, emit } from "@/lib/animation/store";
 
@@ -24,6 +24,7 @@ export function SceneSection({
   label,
   pinned = true,
   overlap = true,
+  holdEnd = false,
 }: {
   id: string;
   length?: number;
@@ -33,9 +34,12 @@ export function SceneSection({
   pinned?: boolean;
   /** start sticking exactly when the previous pinned scene ends (seamless handoff) */
   overlap?: boolean;
+  /** stay visible after the end (when the next section is not an overlapping pinned scene) */
+  holdEnd?: boolean;
 }) {
   const ref = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
+  const ctx = useMemo<Ctx>(() => ({ id, ref, el: () => ref.current ?? document.getElementById(id) }), [id]);
 
   useLayoutEffect(() => {
     if (!ref.current) return;
@@ -46,6 +50,13 @@ export function SceneSection({
       stage.current.style.visibility = on ? "visible" : "hidden";
       stage.current.style.pointerEvents = on ? "auto" : "none";
     };
+    // recomputed on every update: a fast jump can skip the "active" state entirely
+    let last: boolean | null = null;
+    const sync = (self: ScrollTrigger) => {
+      if (!pinned) return;
+      const on = self.isActive || (!overlap && self.progress === 0) || (self.progress === 1 && (!overlap || holdEnd));
+      if (on !== last) show((last = on));
+    };
     const st = ScrollTrigger.create({
       trigger: ref.current,
       start: "top top",
@@ -53,30 +64,35 @@ export function SceneSection({
       onUpdate: (self) => {
         cine.progress[id] = self.progress;
         recomputeActive();
+        sync(self);
       },
       onRefresh: (self) => {
         cine.progress[id] = self.progress;
         recomputeActive();
-        if (pinned) show(self.isActive || (self.progress === 0 && !overlap) || (self.progress === 1 && !overlap));
+        sync(self);
         emit();
       },
       onToggle: (self) => {
-        if (pinned) show(self.isActive || (!overlap && (self.progress === 0 || self.progress === 1)));
+        sync(self);
         emit();
       },
     });
     return () => st.kill();
-  }, [id, pinned, overlap]);
+  }, [id, pinned, overlap, holdEnd]);
 
   return (
-    <SceneCtx.Provider value={{ id, ref, el: () => ref.current ?? document.getElementById(id) }}>
+    <SceneCtx.Provider value={ctx}>
       <section
         id={id}
         ref={ref}
         aria-label={label}
         data-scene={id}
         className={`relative ${pinned ? "pointer-events-none" : ""} ${className}`}
-        style={pinned ? { height: `${length * 100}svh`, marginTop: overlap ? "-100svh" : undefined } : undefined}
+        style={
+          pinned
+            ? { height: `calc((1 + ${length - 1} * var(--scene-k)) * 100svh)`, marginTop: overlap ? "-100svh" : undefined }
+            : undefined
+        }
       >
         {pinned ? (
           <div ref={stage} className="pointer-events-auto sticky top-0 h-svh w-full overflow-hidden">
