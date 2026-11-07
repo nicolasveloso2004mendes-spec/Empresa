@@ -43,17 +43,17 @@ export function Hud() {
       </div>
       <nav
         aria-label="Cenas"
-        className="fixed right-[calc(var(--gutter)*0.5)] top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-2 lg:flex"
+        className="fixed right-[calc(var(--gutter)*0.5)] top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end gap-2 lg:flex"
       >
         {SCENES.map((s, i) => (
           <button
             key={s}
             onClick={() => (s === "lab" ? scrollToScene("lab", 0) : scrollToScene(s, s === "intro" ? 0 : 0.02))}
-            className="group flex h-6 items-center justify-end gap-3"
+            className="group relative flex h-6 w-10 items-center justify-end"
             aria-label={`Ir para ${SCENE_LABELS[s]}`}
             aria-current={i === active ? "step" : undefined}
           >
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-bone/0 transition-colors group-hover:text-bone/80 group-focus-visible:text-bone/80">
+            <span className="pointer-events-none absolute right-12 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.2em] text-bone/0 transition-colors group-hover:text-bone/80 group-focus-visible:text-bone/80">
               {SCENE_LABELS[s]}
             </span>
             <span className={`block h-px transition-all ${i === active ? "w-8 bg-gold" : "w-4 bg-white/30 group-hover:bg-white/70"}`} />

@@ -42,7 +42,9 @@ export function SceneSection({
     // pinned overlays only exist while their shot is on screen: the next scene
     // never slides over the current one, hand-offs are clean cuts in the DOM
     const show = (on: boolean) => {
-      if (stage.current) stage.current.style.visibility = on ? "visible" : "hidden";
+      if (!stage.current) return;
+      stage.current.style.visibility = on ? "visible" : "hidden";
+      stage.current.style.pointerEvents = on ? "auto" : "none";
     };
     const st = ScrollTrigger.create({
       trigger: ref.current,
@@ -73,11 +75,11 @@ export function SceneSection({
         ref={ref}
         aria-label={label}
         data-scene={id}
-        className={`relative ${className}`}
+        className={`relative ${pinned ? "pointer-events-none" : ""} ${className}`}
         style={pinned ? { height: `${length * 100}svh`, marginTop: overlap ? "-100svh" : undefined } : undefined}
       >
         {pinned ? (
-          <div ref={stage} className="sticky top-0 h-svh w-full overflow-hidden">
+          <div ref={stage} className="pointer-events-auto sticky top-0 h-svh w-full overflow-hidden">
             {children}
           </div>
         ) : (

@@ -41,11 +41,11 @@ function FinalCopy() {
       </Blueprint>
       <p data-alt className="relative mt-8 font-mono text-[11px] uppercase tracking-[0.2em] text-bone/55">
         {site.primaryContact.label} {site.primaryContact.handle} · ou{" "}
-        <a href={site.contacts[2].href} target="_blank" rel="noopener noreferrer" className="text-gold-hi underline-offset-4 hover:underline">
+        <a href={site.contacts[2].href} target="_blank" rel="noopener noreferrer" className="inline-block whitespace-nowrap py-2 text-gold-hi underline-offset-4 hover:underline">
           WhatsApp
         </a>{" "}
         ·{" "}
-        <a href={site.contacts[1].href} className="text-gold-hi underline-offset-4 hover:underline">
+        <a href={site.contacts[1].href} className="inline-block whitespace-nowrap py-2 text-gold-hi underline-offset-4 hover:underline">
           e-mail
         </a>
       </p>

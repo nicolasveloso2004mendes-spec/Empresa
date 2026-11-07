@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect } from "react";
 import { DeviceContext, useDetectDevice } from "@/hooks/useDeviceTier";
 import { cine } from "@/lib/animation/store";
-import { gsap, ScrollTrigger } from "@/lib/animation/gsap";
+import { gsap, ScrollTrigger, scrollToScene } from "@/lib/animation/gsap";
 import { projects } from "@/data/projects";
 import { SmoothScroll } from "./SmoothScroll";
 import { Header } from "./Header";
@@ -42,6 +42,14 @@ export function Experience() {
 
   /** black screen → a small gold light is born → the symbol is revealed */
   const startIntro = useCallback(() => {
+    // deep links (e.g. "Voltar ao showcase" → /#work-wr-car) land on that scene
+    const hash = decodeURIComponent(location.hash.slice(1));
+    if (hash && document.getElementById(hash)) {
+      cine.introAuto = 1;
+      ScrollTrigger.refresh();
+      requestAnimationFrame(() => scrollToScene(hash, hash.startsWith("work-") ? 0.3 : 0.02));
+      return;
+    }
     if (cine.reduced) {
       cine.introAuto = 1;
       return;
@@ -56,7 +64,7 @@ export function Experience() {
       <Loader use3D={use3D} ready={device.ready} onDone={startIntro} />
       <Header />
       <Hud />
-      <main id="conteudo" className="relative z-10">
+      <main id="conteudo" className="relative z-10 overflow-x-clip">
         <IntroScene />
         <HeroScene />
         <ManifestoScene />

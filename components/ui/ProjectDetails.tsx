@@ -56,8 +56,8 @@ export function ProjectDetails({ project, onClose }: { project: Project; onClose
               {project.client}
             </h3>
           </div>
-          <button onClick={onClose} className="min-h-11 min-w-11 border border-white/15 font-mono text-xs text-bone/80 hover:border-gold">
-            ✕<span className="sr-only">Fechar</span>
+          <button onClick={onClose} aria-label="Fechar" className="min-h-11 min-w-11 border border-white/15 font-mono text-xs text-bone/80 hover:border-gold">
+            <span aria-hidden>✕</span>
           </button>
         </div>
         <p className="mt-6 leading-relaxed text-bone/85">{project.summary}</p>

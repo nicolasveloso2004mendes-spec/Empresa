@@ -138,7 +138,7 @@ export function Blueprint({
           }).add(tl.play(0));
         } else {
           gsap.timeline({
-            scrollTrigger: { trigger: root, start: "top 85%", end: "top 25%", scrub: 0.6 },
+            scrollTrigger: { trigger: root, start: "top 95%", end: "top 60%", scrub: 0.4 },
           }).add(tl.play(0));
         }
         tlRef.current = tl;
