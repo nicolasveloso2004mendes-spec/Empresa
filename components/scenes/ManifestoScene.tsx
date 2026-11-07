@@ -54,13 +54,13 @@ function ManifestoCopy() {
   return (
     <div data-stage className="relative flex h-full items-center justify-center px-[var(--gutter)] [perspective:900px]">
       <p className="eyebrow absolute left-[var(--gutter)] top-24">02 — Manifesto</p>
-      <h2 className="sr-only">We don&apos;t just build websites. We build experiences.</h2>
+      <h2 className="sr-only">Não fazemos apenas sites. Criamos experiências.</h2>
       <p data-a aria-hidden className="display absolute inset-x-[var(--gutter)] text-center text-[clamp(3rem,10.5vw,10rem)] [transform-style:preserve-3d]">
-        We don&apos;t just build websites.
+        Não fazemos apenas sites.
       </p>
       <div data-b-wrap className="absolute inset-x-[var(--gutter)] text-center">
         <p data-b aria-hidden className="display text-[clamp(3.4rem,12vw,11.5rem)] [transform-style:preserve-3d]">
-          We build <span className="text-gold">experiences.</span>
+          Criamos <span className="text-gold">experiências.</span>
         </p>
       </div>
       <div className="absolute inset-x-[var(--gutter)] bottom-[14svh] mx-auto max-w-2xl text-center">

@@ -30,14 +30,14 @@ function HeroCopy() {
         className="relative z-10 flex h-full max-w-[min(100%,58rem)] flex-col justify-end px-[var(--gutter)] pb-[13svh] md:justify-center md:pb-0"
       >
         <p data-eyebrow className="eyebrow mb-6">
-          NicoTech · Cinematic Digital Studio
+          NicoTech · Estúdio digital cinematográfico
         </p>
         <h2 className="display text-[clamp(4.2rem,13.5vw,12.5rem)]">
           <span data-line className="block">
-            Beyond
+            Além
           </span>
           <span data-line data-gold className="block text-gold">
-            the digital.
+            do digital.
           </span>
         </h2>
         <p data-sub className="mt-7 max-w-md text-[clamp(1rem,1.5vw,1.2rem)] leading-relaxed text-bone/80">
@@ -49,15 +49,15 @@ function HeroCopy() {
             onClick={() => scrollToScene(`work-${first.slug}`, 0.02)}
             className="group flex min-h-14 items-center gap-4 bg-gold px-7 font-mono text-xs font-medium uppercase tracking-[0.24em] text-void transition-colors hover:bg-gold-hi"
           >
-            Explore our work
+            Conheça nosso trabalho
             <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
           </button>
           <p data-bp className="font-mono text-[10px] uppercase leading-5 tracking-[0.2em] text-bone/55">
-            OBJ · 01 — Sculpture
+            OBJ · 01 — Escultura
             <br />
-            PBR metal · live light · cursor-reactive
+            Metal PBR · luz em tempo real · reage ao cursor
           </p>
         </Blueprint>
       </div>
@@ -67,7 +67,7 @@ function HeroCopy() {
 
 export function HeroScene() {
   return (
-    <SceneSection id="hero" length={2.8} label="Beyond the digital">
+    <SceneSection id="hero" length={2.8} label="Além do digital">
       <HeroCopy />
     </SceneSection>
   );

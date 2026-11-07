@@ -22,8 +22,8 @@ export function Header() {
       </a>
       <nav aria-label="Principal" className="pointer-events-auto hidden items-center gap-8 md:flex">
         {[
-          ["Work", `#work-${projects[0].slug}`, () => scrollToScene(`work-${projects[0].slug}`, 0.05)],
-          ["Capabilities", "#capabilities", () => scrollToScene("capabilities", 0.02)],
+          ["Projetos", `#work-${projects[0].slug}`, () => scrollToScene(`work-${projects[0].slug}`, 0.05)],
+          ["Serviços", "#capabilities", () => scrollToScene("capabilities", 0.02)],
           ["Lab", "#lab", () => scrollToTarget("#lab")],
         ].map(([label, href, fn]) => (
           <a
@@ -42,7 +42,7 @@ export function Header() {
         rel="noopener noreferrer"
         className="pointer-events-auto group flex min-h-11 items-center gap-2 border border-gold/50 px-4 font-mono text-[11px] uppercase tracking-[0.2em] text-gold-hi transition-colors hover:bg-gold hover:text-void"
       >
-        Start a project
+        Começar projeto
         <span aria-hidden className="transition-transform group-hover:translate-x-0.5">↗</span>
       </a>
     </header>

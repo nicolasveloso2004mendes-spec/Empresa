@@ -46,7 +46,7 @@ function IntroCopy() {
 
   return (
     <div className="relative flex h-full flex-col items-center justify-end px-[var(--gutter)] pb-[12svh] text-center">
-      <h1 className="sr-only">NicoTech — Digital Experiences Beyond Ordinary</h1>
+      <h1 className="sr-only">NicoTech — Experiências digitais além do comum</h1>
       <p
         ref={brand}
         data-brand
@@ -56,10 +56,10 @@ function IntroCopy() {
         NICOTECH
       </p>
       <p data-tagline className="mt-4 font-mono text-[clamp(0.7rem,1.4vw,0.95rem)] uppercase tracking-[0.42em] text-gold-hi">
-        We create digital experiences.
+        Criamos experiências digitais.
       </p>
       <div data-cue className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2" aria-hidden>
-        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-bone/50">Scroll to enter</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-bone/50">Role para entrar</span>
         <span className="h-10 w-px animate-pulse bg-gradient-to-b from-gold to-transparent" />
       </div>
       <div

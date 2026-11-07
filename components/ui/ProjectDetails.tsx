@@ -51,7 +51,7 @@ export function ProjectDetails({ project, onClose }: { project: Project; onClose
       >
         <div className="flex items-start justify-between gap-6">
           <div>
-            <p className="eyebrow">Case {project.index} · {project.year}</p>
+            <p className="eyebrow">Projeto {project.index} · {project.year}</p>
             <h3 id={`d-${project.slug}`} className="display mt-3 text-6xl">
               {project.client}
             </h3>

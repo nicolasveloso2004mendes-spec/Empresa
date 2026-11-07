@@ -20,12 +20,12 @@ export const SCENES = [
 export type SceneId = string;
 
 export const SCENE_LABELS: Record<string, string> = {
-  intro: "Intro",
-  hero: "Beyond",
+  intro: "Abertura",
+  hero: "Além do digital",
   manifesto: "Manifesto",
-  capabilities: "Capabilities",
-  lab: "Lab",
-  final: "Contact",
+  capabilities: "Serviços",
+  lab: "Laboratório",
+  final: "Contato",
   ...Object.fromEntries(projects.map((p) => [`work-${p.slug}`, p.client])),
 };
 

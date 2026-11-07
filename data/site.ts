@@ -1,10 +1,10 @@
 /**
  * Configuração comercial da NicoTech.
- * O botão "START A PROJECT" abre `primaryContact`. Troque aqui para mudar o canal.
+ * O botão "Começar um projeto" abre `primaryContact`. Troque aqui para mudar o canal.
  */
 export const site = {
   name: "NicoTech",
-  tagline: "Digital Experiences Beyond Ordinary.",
+  tagline: "Experiências digitais além do comum.",
   description:
     "NicoTech — estúdio digital que cria sites premium, experiências interativas, IA e automação para empresas que querem ir além.",
   url:

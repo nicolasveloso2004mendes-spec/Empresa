@@ -53,7 +53,7 @@ function WorkCopy({ project, index, total }: { project: Project; index: number; 
 
       <div data-slate className="absolute left-[var(--gutter)] top-24 z-10">
         <p className="eyebrow">
-          03 — Selected work · {project.index}/{String(total).padStart(2, "0")}
+          03 — Projetos selecionados · {project.index}/{String(total).padStart(2, "0")}
         </p>
       </div>
 
@@ -69,12 +69,12 @@ function WorkCopy({ project, index, total }: { project: Project; index: number; 
       </div>
 
       <div data-live className="absolute bottom-28 left-[var(--gutter)] z-10 bg-void/80 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-bone/80 backdrop-blur-md sm:bottom-32">
-        <span className="text-gold">● Live capture</span> — {project.url.replace("https://", "").replace(/\/$/, "")} ·{" "}
+        <span className="text-gold">● Captura real</span> — {project.url.replace("https://", "").replace(/\/$/, "")} ·{" "}
         <span ref={pct}>000</span>%
       </div>
 
       <div data-mobilecap className="absolute bottom-44 left-[var(--gutter)] z-10 max-w-[15rem] sm:bottom-auto sm:left-auto sm:right-[var(--gutter)] sm:top-1/3 sm:text-right">
-        <p className="eyebrow">Mobile</p>
+        <p className="eyebrow">Versão celular</p>
         <p className="display mt-2 text-[clamp(2rem,4vw,3.6rem)]">Pensado para o polegar.</p>
       </div>
       </div>
@@ -91,7 +91,7 @@ function WorkCopy({ project, index, total }: { project: Project; index: number; 
                 focus === f ? "bg-gold text-void" : "text-bone/75 hover:text-bone"
               }`}
             >
-              {f}
+              {f === "desktop" ? "Computador" : "Celular"}
             </button>
           ))}
         </div>
@@ -117,7 +117,7 @@ function WorkCopy({ project, index, total }: { project: Project; index: number; 
         </a>
         {focus !== "auto" && (
           <span className="ml-1 font-mono text-[10px] uppercase tracking-[0.18em] text-bone/50">
-            Câmera travada no {focus} · clique de novo para voltar
+            Câmera travada no {focus === "desktop" ? "computador" : "celular"} · clique de novo para voltar
           </span>
         )}
       </div>

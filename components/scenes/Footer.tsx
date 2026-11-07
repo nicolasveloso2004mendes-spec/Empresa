@@ -45,7 +45,7 @@ export function Footer() {
         </div>
       </div>
       <div className="hairline mt-14" />
-      <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-bone/40">© {new Date().getFullYear()} NicoTech · Digital Experiences Beyond Ordinary</p>
+      <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-bone/40">© {new Date().getFullYear()} NicoTech · Experiências digitais além do comum</p>
     </footer>
   );
 }

@@ -38,9 +38,9 @@ function CapsCopy() {
     <div data-caps className="relative flex h-full flex-col justify-between px-[var(--gutter)] pb-14 pt-24">
       <div className="scrim-b pointer-events-none absolute inset-0 md:hidden" aria-hidden />
       <div className="relative">
-        <p className="eyebrow">04 — Capabilities</p>
+        <p className="eyebrow">04 — Serviços</p>
         <h2 data-title className="display mt-4 text-[clamp(2.8rem,7.5vw,7rem)]">
-          Our capabilities<span className="text-gold">.</span>
+          Nossos serviços<span className="text-gold">.</span>
         </h2>
       </div>
 
@@ -92,7 +92,7 @@ function CapsCopy() {
 
 export function CapabilitiesScene() {
   return (
-    <SceneSection id="capabilities" length={6.5} label="Our capabilities">
+    <SceneSection id="capabilities" length={6.5} label="Nossos serviços">
       <CapsCopy />
     </SceneSection>
   );

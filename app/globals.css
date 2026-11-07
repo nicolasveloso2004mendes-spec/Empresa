@@ -69,6 +69,11 @@ body {
   color: transparent;
   animation: sheen 7s linear infinite;
 }
+/* the gradient only paints inside the box: extend it over accents (Á, Ê) */
+.display .gold-text {
+  padding-top: 0.16em;
+  margin-top: -0.16em;
+}
 @keyframes sheen {
   to {
     background-position: -200% 0;
@@ -92,11 +97,14 @@ body {
   background: linear-gradient(0deg, rgba(5, 5, 5, 0.92) 0%, rgba(5, 5, 5, 0.5) 40%, transparent 75%);
 }
 
-/* SplitText masks */
+/* SplitText masks — room for Portuguese accents (É Ê Ã Ç) above/below the tight leading */
+/* SplitText adds no class to mask wrappers, only inline overflow:clip */
+.display [style*="overflow: clip"],
 .line-mask {
-  overflow: clip;
-  padding-bottom: 0.04em;
-  margin-bottom: -0.04em;
+  padding-top: 0.16em;
+  margin-top: -0.16em;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
 /* ─── Blueprint build (reference motion signature) ───────────── */

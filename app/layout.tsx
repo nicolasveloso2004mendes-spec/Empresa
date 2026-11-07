@@ -9,16 +9,16 @@ const mono = JetBrains_Mono({ subsets: ["latin"], display: "swap", variable: "--
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: "NicoTech — Digital Experiences Beyond Ordinary", template: "%s · NicoTech" },
+  title: { default: "NicoTech — Experiências digitais além do comum", template: "%s · NicoTech" },
   description: site.description,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "pt_BR",
     siteName: "NicoTech",
-    title: "NicoTech — Digital Experiences Beyond Ordinary",
+    title: "NicoTech — Experiências digitais além do comum",
     description: site.description,
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "NicoTech — Beyond the digital." }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "NicoTech — Além do digital." }],
   },
   twitter: { card: "summary_large_image" },
   icons: { icon: "/icon.svg" },

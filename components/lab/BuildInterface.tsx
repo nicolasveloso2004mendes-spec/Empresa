@@ -31,7 +31,7 @@ export function BuildInterface() {
         <div className="grid h-full grid-cols-3 grid-rows-[auto_1fr_auto] gap-3">
           <div data-bp className="col-span-3 flex items-center justify-between border-b border-white/10 pb-2">
             <span className="font-display text-lg tracking-wide">SEU PROJETO</span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-gold">build v1</span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-gold">versão 1</span>
           </div>
           <div data-bp className="col-span-2 flex flex-col justify-end bg-gradient-to-br from-gold/25 via-graphite to-void p-3">
             <p className="display text-[clamp(1.4rem,3vw,2.4rem)]">Hero</p>
@@ -51,7 +51,7 @@ export function BuildInterface() {
               </div>
             </div>
           </div>
-          {["Layout", "Motion", "Deploy"].map((l) => (
+          {["Layout", "Animação", "Publicação"].map((l) => (
             <div data-bp key={l} className="border border-white/10 p-2">
               <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-bone/60">{l}</p>
               <div className="mt-2 h-1 bg-white/10">
@@ -64,7 +64,7 @@ export function BuildInterface() {
 
       <label className="block">
         <span className="mb-1 flex justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-bone/55">
-          Timeline da construção <span>{Math.round(p * 100)}%</span>
+          Linha do tempo da construção <span>{Math.round(p * 100)}%</span>
         </span>
         <input
           type="range"

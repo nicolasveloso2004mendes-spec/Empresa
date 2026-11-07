@@ -13,12 +13,12 @@ const EXPERIMENTS = [
 
 export function LabScene() {
   return (
-    <SceneSection id="lab" label="NicoTech Lab" pinned={false}>
+    <SceneSection id="lab" label="Laboratório NicoTech" pinned={false}>
       <div className="relative px-[var(--gutter)] pb-[30svh] pt-[24svh]">
         <Blueprint mode="self" cursors={10} className="max-w-3xl">
-          <p data-bp className="eyebrow">05 — NicoTech Lab</p>
+          <p data-bp className="eyebrow">05 — Laboratório NicoTech</p>
           <h2 data-bp className="display mt-4 text-[clamp(3rem,9vw,8.5rem)]">
-            The <span className="text-gold">lab.</span>
+            O <span className="text-gold">laboratório.</span>
           </h2>
           <p data-bp className="mt-6 max-w-xl text-lg leading-relaxed text-bone/80">
             Experimentos reais, rodando agora no seu navegador. Nada aqui é vídeo ou imagem estática: toque, arraste, escreva.
